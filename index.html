@@ -211,16 +211,6 @@
       filter: drop-shadow(0 -20px 40px rgba(209, 0, 0, 0.5));
     }
 
-    .hero-img-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      background: linear-gradient(to top, var(--black2), transparent);
-    }
-
     .hero-cta-wrap {
       padding: 20px 0 30px;
       text-align: center;
@@ -2193,6 +2183,12 @@
       background: linear-gradient(135deg, var(--red-bright) 0%, var(--red) 100%);
       animation: none;
       transform: scale(1.06);
+    }
+
+    @media (max-width: 450px) {
+      .fixed-order-btn{
+        right: 20px;
+      }
     }
 
     @keyframes fixedBtnBounce {
