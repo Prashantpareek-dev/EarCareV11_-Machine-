@@ -198,13 +198,16 @@
 
     .hero-img-wrap {
       position: relative;
-      margin: 0 -24px;
+      width: 100%;
       overflow: hidden;
+      line-height: 0;
     }
 
     .hero-img-wrap img {
       width: 100%;
+      height: auto;
       display: block;
+      object-fit: cover;
       filter: drop-shadow(0 -20px 40px rgba(209, 0, 0, 0.5));
     }
 
@@ -2189,16 +2192,7 @@
 <body>
 
   <div class="page">
-
-    <!-- ══════════════ STICKY BAR ══════════════ -->
-    <div class="sticky-bar">
-      <div class="sticky-bar-text">
-        <strong>🔥 Limited Offer</strong>
-        अभी Order करें – COD उपलब्ध
-      </div>
-      <a href="#order" class="sticky-btn">Order Now ▸</a>
-    </div>
-
+   
     <!-- ══════════════ HERO / HOOK ══════════════ -->
     <section class="hero">
       <div class="hero-img-wrap">
