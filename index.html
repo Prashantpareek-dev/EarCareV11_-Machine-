@@ -2167,6 +2167,40 @@
       background: #050000;
     }
 
+    /* Fixed Order Now Button */
+    .fixed-order-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 35%;
+      z-index: 9999;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 13px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(209,0,0,0.55), 0 0 0 0 rgba(209,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      animation: fixedBtnBounce 1.8s ease-in-out infinite;
+      letter-spacing: 0.3px;
+    }
+
+    .fixed-order-btn:hover {
+      background: linear-gradient(135deg, var(--red-bright) 0%, var(--red) 100%);
+      animation: none;
+      transform: scale(1.06);
+    }
+
+    @keyframes fixedBtnBounce {
+      0%, 100% { transform: translateY(0);      box-shadow: 0 6px 24px rgba(209,0,0,0.55); }
+      40%       { transform: translateY(-10px);  box-shadow: 0 18px 32px rgba(209,0,0,0.35); }
+      60%       { transform: translateY(-5px);   box-shadow: 0 12px 28px rgba(209,0,0,0.45); }
+    }
+
   
   
     .fade-up {
@@ -2903,6 +2937,11 @@
 
     <div class="footer-pad"></div>
   </div>
+
+  <!-- Fixed Bouncing Order Button -->
+  <a href="#order" class="fixed-order-btn">
+    🛒 Order Now
+  </a>
 
   <script>
     // ─── SUBMIT FORM (Google Sheets) ───
