@@ -1,2108 +1,3023 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EarCare Capsule – Natural Hearing Support</title>
-<link href="https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --red: #D10000;
-    --red-bright: #FF1A1A;
-    --red-dark: #8B0000;
-    --red-glow: rgba(209,0,0,0.35);
-    --black: #000000;
-    --black2: #0D0000;
-    --black3: #1a0000;
-    --white: #FFFFFF;
-    --off-white: #F5F0F0;
-    --text-sec: #F5F0F0;
-    --gold: #C8991A;
-    --font: 'Halant', serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    font-family: var(--font);
-    color: var(--white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  .page {
-    width: 100%;
-    max-width: 450px;
-    background: var(--black2);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* ─── NOISE TEXTURE ─── */
-  .page::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.04;
-  }
-
-  /* ─── SCROLLBAR ─── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--black); }
-  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
-
-  /* ════════════════════════════════════
-     SECTION UTILITIES
-  ════════════════════════════════════ */
-  section { position: relative; z-index: 1; }
-
-  .tag {
-    display: inline-block;
-    background: var(--red);
-    color: var(--white);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 4px 14px;
-    clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
-    margin-bottom: 10px;
-  }
-
-  .sec-head {
-    font-size: 1.65rem;
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--white);
-  }
-  .sec-head span { color: var(--red-bright); }
-
-  .divider {
-    width: 48px; height: 3px;
-    background: var(--red);
-    margin: 12px 0;
-  }
-
-  /* ════════════════════════════════════
-     HERO / HOOK
-  ════════════════════════════════════ */
-  .hero {
-    background: linear-gradient(160deg, #1a0000 0%, #000 60%);
-    padding: 0;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .hero-top-bar {
-    background: var(--red);
-    text-align: center;
-    padding: 8px 16px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    animation: pulse-bar 2.5s infinite;
-  }
-  @keyframes pulse-bar {
-    0%,100% { background: var(--red); }
-    50% { background: var(--red-dark); }
-  }
-
-  .hero-inner {
-    padding: 30px 24px 0;
-  }
-
-  .hero-eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    color: var(--red-bright);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    font-weight: 500;
-  }
-
-  .hero-headline {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--white);
-    margin-bottom: 18px;
-  }
-  .hero-headline em {
-    font-style: normal;
-    color: var(--red-bright);
-    display: block;
-  }
-
-  .hero-bullets {
-    list-style: none;
-    margin-bottom: 22px;
-  }
-  .hero-bullets li {
-    font-size: 1.05rem;
-    color: var(--text-sec);
-    padding: 8px 0 8px 28px;
-    position: relative;
-    border-bottom: 1px solid rgba(209,0,0,0.15);
-    line-height: 1.5;
-  }
-  .hero-bullets li::before {
-    content: '▸';
-    color: var(--red-bright);
-    position: absolute;
-    left: 0;
-    top: 8px;
-    font-size: 1.1rem;
-  }
-
-  .hero-img-wrap {
-    position: relative;
-    margin: 0 -24px;
-    overflow: hidden;
-  }
-  .hero-img-wrap img {
-    width: 100%;
-    display: block;
-    filter: drop-shadow(0 -20px 40px rgba(209,0,0,0.5));
-  }
-  .hero-img-wrap::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 80px;
-    background: linear-gradient(to top, var(--black2), transparent);
-  }
-
-  .hero-cta-wrap {
-    padding: 20px 0 30px;
-    text-align: center;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
-    color: var(--white);
-    font-family: var(--font);
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 16px 36px;
-    border: none;
-    cursor: pointer;
-    clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: all 0.25s;
-    box-shadow: 0 6px 28px var(--red-glow);
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    transition: left 0.4s;
-  }
-  .btn-primary:hover::before { left: 100%; }
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 36px var(--red-glow);
-  }
-  .btn-primary:active { transform: translateY(0); }
-
-  /* ════════════════════════════════════
-     PAIN / PROBLEM SECTION
-  ════════════════════════════════════ */
-  .pain-sec {
-    background: linear-gradient(180deg, #0D0000 0%, #100000 100%);
-    padding: 40px 24px;
-  }
-
-  .pain-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 24px;
-  }
-
-  .pain-card {
-    background: rgba(209,0,0,0.08);
-    border: 1px solid rgba(209,0,0,0.25);
-    border-radius: 4px;
-    padding: 16px 12px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    cursor: default;
-  }
-  .pain-card:hover {
-    background: rgba(209,0,0,0.16);
-    border-color: var(--red);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(209,0,0,0.25);
-  }
-  .pain-card:active { transform: translateY(-1px); }
-
-  .pain-card-img {
-    width: 100%;
-    height: 90px;
-    object-fit: cover;
-    clip-path: polygon(0 0, 100% 0, 100% 80%, 85% 100%, 0 100%);
-    margin-bottom: 10px;
-    border-radius: 2px;
-  }
-
-  .pain-card-icon {
-    font-size: 1.6rem;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  .pain-card-text {
-    font-size: 0.9rem;
-    color: var(--text-sec);
-    line-height: 1.4;
-  }
-
-  .pain-cause {
-    margin-top: 28px;
-    background: rgba(139,0,0,0.15);
-    border-left: 4px solid var(--red);
-    padding: 18px 16px;
-    border-radius: 0 6px 6px 0;
-  }
-  .pain-cause-head {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--red-bright);
-    margin-bottom: 12px;
-  }
-  .cause-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 7px 0;
-    border-bottom: 1px solid rgba(209,0,0,0.12);
-    font-size: 1rem;
-    color: var(--text-sec);
-  }
-  .cause-item:last-child { border-bottom: none; }
-  .cause-item img {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    border: 1px solid var(--red-dark);
-  }
-  .cause-item span { margin-top: 4px; }
-
-  .pain-note {
-    margin-top: 20px;
-    padding: 14px 16px;
-    background: var(--red-dark);
-    clip-path: polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%);
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.4;
-  }
-
-  /* ════════════════════════════════════
-     PRODUCT INTRO
-  ════════════════════════════════════ */
-  .product-sec {
-    background: #000;
-    padding: 40px 24px;
-    position: relative;
-  }
-
-  .product-sec::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--red), transparent);
-  }
-
-  .product-reveal {
-    display: flex;
-    gap: 18px;
-    align-items: flex-start;
-    margin-top: 24px;
-  }
-  .product-img-side {
-    flex-shrink: 0;
-    width: 130px;
-    position: relative;
-  }
-  .product-img-side img {
-    width: 100%;
-    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-    filter: drop-shadow(0 0 20px rgba(209,0,0,0.5));
-    transition: filter 0.4s;
-  }
-  .product-img-side:hover img {
-    filter: drop-shadow(0 0 32px rgba(255,26,26,0.75));
-  }
-
-  .product-text-side { flex: 1; }
-  .product-name {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-  .product-name span { color: var(--red-bright); }
-
-  .product-tagline {
-    font-size: 1rem;
-    color: var(--text-sec);
-    margin-bottom: 14px;
-    line-height: 1.5;
-  }
-
-  .product-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
-  }
-  .badge {
-    background: rgba(209,0,0,0.18);
-    border: 1px solid var(--red-dark);
-    color: var(--off-white);
-    font-size: 0.78rem;
-    padding: 4px 10px;
-    border-radius: 2px;
-    font-weight: 500;
-  }
-
-  .for-whom {
-    margin-top: 22px;
-    background: rgba(209,0,0,0.07);
-    border: 1px solid rgba(209,0,0,0.2);
-    border-radius: 4px;
-    padding: 16px;
-  }
-  .for-whom-head {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--red-bright);
-    margin-bottom: 10px;
-  }
-  .for-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(209,0,0,0.1);
-    font-size: 1rem;
-    color: var(--text-sec);
-  }
-  .for-item:last-child { border-bottom: none; }
-  .for-item img {
-    width: 42px; height: 42px;
-    object-fit: cover;
-    clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
-    flex-shrink: 0;
-  }
-
-  /* ════════════════════════════════════
-     HOW IT WORKS
-  ════════════════════════════════════ */
-  .mechanism-sec {
-    background: linear-gradient(160deg, #0D0000 0%, #000 100%);
-    padding: 40px 24px;
-  }
-
-  .mech-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 24px;
-  }
-
-  .mech-card {
-    background: rgba(209,0,0,0.06);
-    border: 1px solid rgba(209,0,0,0.18);
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;
-    transition: all 0.35s;
-    cursor: default;
-    position: relative;
-  }
-  .mech-card:hover {
-    border-color: var(--red);
-    background: rgba(209,0,0,0.14);
-    transform: translateX(6px);
-  }
-  .mech-card:active { transform: translateX(2px); }
-
-  .mech-img-col {
-    width: 100px;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .mech-img-col img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
-    transition: transform 0.4s;
-  }
-  .mech-card:hover .mech-img-col img { transform: scale(1.08); }
-
-  .mech-content {
-    padding: 16px 14px;
-    flex: 1;
-  }
-  .mech-num {
-    font-size: 2rem;
-    font-weight: 700;
-    color: rgba(209,0,0,0.25);
-    line-height: 1;
-    position: absolute;
-    bottom: 8px;
-    right: 12px;
-  }
-  .mech-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--red-bright);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .mech-title span { font-size: 1.2rem; }
-  .mech-desc {
-    font-size: 0.95rem;
-    color: var(--text-sec);
-    line-height: 1.5;
-  }
-
-  /* ════════════════════════════════════
-     AYURVEDA / RECOMMENDATION
-  ════════════════════════════════════ */
-  .ayur-sec {
-    background: #000;
-    padding: 40px 24px;
-    position: relative;
-  }
-
-  .ayur-visual {
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .ayur-img-full {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    clip-path: polygon(0 0, 100% 0, 100% 88%, 94% 100%, 6% 100%, 0 88%);
-    transition: filter 0.3s;
-    filter: saturate(0.7) sepia(0.2);
-  }
-  .ayur-img-full:hover { filter: saturate(1) sepia(0); }
-
-  .ayur-content-box {
-    background: rgba(139,0,0,0.12);
-    border: 1px solid rgba(209,0,0,0.22);
-    border-radius: 4px;
-    padding: 20px;
-  }
-  .ayur-lead {
-    font-size: 1.1rem;
-    color: var(--text-sec);
-    margin-bottom: 14px;
-    line-height: 1.6;
-  }
-  .ayur-lead strong { color: var(--red-bright); }
-
-  .ayur-points {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .ayur-point {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 12px;
-    background: rgba(209,0,0,0.07);
-    border-radius: 3px;
-    transition: background 0.3s;
-    cursor: default;
-    font-size: 1rem;
-    color: var(--text-sec);
-  }
-  .ayur-point:hover { background: rgba(209,0,0,0.16); }
-  .ayur-point img {
-    width: 44px; height: 44px;
-    object-fit: cover;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 2px solid var(--red-dark);
-  }
-  .ayur-point-text { margin-top: 4px; line-height: 1.4; }
-
-  /* ════════════════════════════════════
-     COMPARISON
-  ════════════════════════════════════ */
-  .compare-sec {
-    background: linear-gradient(180deg, #0D0000 0%, #050000 100%);
-    padding: 40px 24px;
-  }
-
-  .compare-table {
-    margin-top: 24px;
-    border: 1px solid rgba(209,0,0,0.25);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .compare-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    background: var(--red-dark);
-  }
-  .compare-header div {
-    padding: 12px 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-align: center;
-    color: var(--white);
-    letter-spacing: 0.5px;
-  }
-  .compare-header div:first-child { background: rgba(0,0,0,0.3); font-size: 0.75rem; color: rgba(255,255,255,0.7); }
-
-  .compare-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border-top: 1px solid rgba(209,0,0,0.12);
-    transition: background 0.25s;
-    cursor: default;
-  }
-  .compare-row:hover { background: rgba(209,0,0,0.08); }
-  .compare-row div {
-    padding: 12px 8px;
-    font-size: 0.92rem;
-    color: var(--text-sec);
-    text-align: center;
-    line-height: 1.4;
-  }
-  .compare-row div:first-child {
-    color: rgba(255,255,255,0.5);
-    font-size: 0.8rem;
-    border-right: 1px solid rgba(209,0,0,0.12);
-  }
-  .compare-row div:last-child {
-    color: #66FF88;
-    font-weight: 600;
-  }
-
-  .compare-row div:nth-child(2) {
-    color: rgba(255,180,180,0.8);
-    border-right: 1px solid rgba(209,0,0,0.12);
-  }
-
-  /* ════════════════════════════════════
-     BEFORE & AFTER
-  ════════════════════════════════════ */
-  .ba-sec {
-    background: #000;
-    padding: 40px 24px;
-    position: relative;
-  }
-
-  .ba-sec::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--red), transparent);
-  }
-
-  .ba-container {
-    margin-top: 24px;
-    position: relative;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(209,0,0,0.3);
-  }
-
-  .ba-labels {
-    display: flex;
-    position: absolute;
-    top: 14px;
-    left: 0; right: 0;
-    z-index: 10;
-    pointer-events: none;
-  }
-  .ba-labels .lbl {
-    flex: 1;
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 5px 10px;
-  }
-  .ba-labels .lbl-before { background: rgba(0,0,0,0.75); color: rgba(255,180,180,0.9); }
-  .ba-labels .lbl-after { background: rgba(209,0,0,0.8); color: var(--white); }
-
-  .ba-slider-wrap {
-    position: relative;
-    width: 100%;
-    user-select: none;
-  }
-  .ba-img-before, .ba-img-after {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    display: block;
-  }
-  .ba-img-after {
-    position: absolute;
-    top: 0; left: 0;
-    clip-path: inset(0 50% 0 0);
-    filter: saturate(1.2);
-  }
-  .ba-divider-line {
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 50%;
-    width: 3px;
-    background: var(--red);
-    transform: translateX(-50%);
-    z-index: 5;
-  }
-  .ba-handle {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 42px; height: 42px;
-    background: var(--red);
-    border-radius: 50%;
-    z-index: 6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    cursor: ew-resize;
-    box-shadow: 0 0 16px rgba(209,0,0,0.6);
-    transition: box-shadow 0.2s;
-  }
-  .ba-handle:hover { box-shadow: 0 0 28px rgba(255,26,26,0.8); }
-
-  .ba-points {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 16px;
-  }
-  .ba-point {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 12px;
-    border: 1px solid rgba(209,0,0,0.15);
-    border-radius: 4px;
-    transition: border-color 0.3s, background 0.3s;
-    cursor: default;
-  }
-  .ba-point:hover {
-    border-color: var(--red);
-    background: rgba(209,0,0,0.07);
-  }
-  .ba-before-text {
-    font-size: 0.88rem;
-    color: rgba(255,180,180,0.8);
-    text-align: left;
-    line-height: 1.4;
-  }
-  .ba-arrow { color: var(--red); font-size: 1.2rem; text-align: center; }
-  .ba-after-text {
-    font-size: 0.88rem;
-    color: #77EE99;
-    text-align: right;
-    line-height: 1.4;
-  }
-
-  /* ════════════════════════════════════
-     SOCIAL PROOF / REVIEWS
-  ════════════════════════════════════ */
-  .reviews-sec {
-    background: linear-gradient(170deg, #0D0000 0%, #000 100%);
-    padding: 40px 24px;
-  }
-
-  .reviews-scroll {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 24px;
-  }
-
-  .review-card {
-    background: rgba(209,0,0,0.06);
-    border: 1px solid rgba(209,0,0,0.18);
-    border-radius: 4px;
-    padding: 18px;
-    transition: all 0.3s;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-  }
-  .review-card::before {
-    content: '"';
-    position: absolute;
-    top: -10px; right: 14px;
-    font-size: 5rem;
-    color: rgba(209,0,0,0.12);
-    font-family: serif;
-    line-height: 1;
-  }
-  .review-card:hover {
-    border-color: var(--red);
-    background: rgba(209,0,0,0.12);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(209,0,0,0.2);
-  }
-  .review-card:active { transform: translateY(-1px); }
-
-  .review-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-  .review-avatar {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--red);
-    flex-shrink: 0;
-  }
-  .review-meta { flex: 1; }
-  .review-name {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--white);
-  }
-  .review-age { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
-  .stars { color: var(--gold); font-size: 1rem; }
-
-  .review-text {
-    font-size: 1rem;
-    color: var(--text-sec);
-    line-height: 1.6;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ════════════════════════════════════
-     INGREDIENTS
-  ════════════════════════════════════ */
-  .ingredients-sec {
-    background: #000;
-    padding: 40px 24px;
-    position: relative;
-  }
-
-  .ingr-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 24px;
-  }
-
-  .ingr-card {
-    border: 1px solid rgba(209,0,0,0.2);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: all 0.35s;
-    cursor: default;
-    position: relative;
-  }
-  .ingr-card:hover {
-    border-color: var(--red);
-    transform: scale(1.04);
-    box-shadow: 0 6px 22px rgba(209,0,0,0.25);
-    z-index: 2;
-  }
-  .ingr-card:active { transform: scale(1.01); }
-
-  .ingr-img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
-    filter: saturate(0.6);
-    transition: filter 0.3s;
-  }
-  .ingr-card:hover .ingr-img { filter: saturate(1.2); }
-
-  .ingr-info {
-    padding: 10px 10px 12px;
-    background: rgba(209,0,0,0.07);
-  }
-  .ingr-name {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 3px;
-  }
-  .ingr-benefit {
-    font-size: 0.82rem;
-    color: rgba(255,200,200,0.8);
-  }
-
-  .ingr-note {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 1rem;
-    color: var(--text-sec);
-    padding: 12px;
-    border: 1px dashed rgba(209,0,0,0.3);
-    border-radius: 4px;
-  }
-  .ingr-note strong { color: var(--red-bright); }
-
-  /* ════════════════════════════════════
-     HOW TO USE
-  ════════════════════════════════════ */
-  .usage-sec {
-    background: linear-gradient(160deg, #0D0000 0%, #000 100%);
-    padding: 40px 24px;
-  }
-
-  .usage-timeline {
-    margin-top: 24px;
-    position: relative;
-    padding-left: 28px;
-  }
-  .usage-timeline::before {
-    content: '';
-    position: absolute;
-    left: 8px; top: 0; bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--red), var(--red-dark));
-  }
-
-  .usage-step {
-    position: relative;
-    padding: 0 0 24px 24px;
-    cursor: default;
-  }
-  .usage-step:last-child { padding-bottom: 0; }
-
-  .usage-step::before {
-    content: '';
-    position: absolute;
-    left: -24px; top: 4px;
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: var(--red);
-    border: 2px solid var(--black2);
-    transition: box-shadow 0.3s;
-  }
-  .usage-step:hover::before {
-    box-shadow: 0 0 12px var(--red);
-  }
-
-  .usage-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: rgba(209,0,0,0.07);
-    border: 1px solid rgba(209,0,0,0.18);
-    border-radius: 4px;
-    padding: 14px;
-    transition: all 0.3s;
-  }
-  .usage-step:hover .usage-card {
-    background: rgba(209,0,0,0.15);
-    border-color: var(--red);
-    transform: translateX(4px);
-  }
-
-  .usage-img {
-    width: 60px; height: 60px;
-    object-fit: cover;
-    clip-path: polygon(12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0% 50%);
-    flex-shrink: 0;
-  }
-
-  .usage-text { flex: 1; }
-  .usage-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--red-bright);
-    margin-bottom: 3px;
-  }
-  .usage-desc {
-    font-size: 0.95rem;
-    color: var(--text-sec);
-    line-height: 1.4;
-  }
-
-  /* ════════════════════════════════════
-     CERTIFIED
-  ════════════════════════════════════ */
-  .cert-sec {
-    background: #000;
-    padding: 40px 24px;
-  }
-
-  .cert-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 24px;
-  }
-  .cert-item {
-    background: rgba(209,0,0,0.07);
-    border: 1px solid rgba(209,0,0,0.2);
-    border-radius: 4px;
-    padding: 16px 12px;
-    text-align: center;
-    transition: all 0.3s;
-    cursor: default;
-  }
-  .cert-item:hover {
-    background: rgba(209,0,0,0.15);
-    border-color: var(--red);
-    transform: translateY(-3px);
-  }
-  .cert-item img {
-    width: 50px; height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    border: 2px solid var(--red-dark);
-  }
-  .cert-label {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 3px;
-  }
-  .cert-sub { font-size: 0.78rem; color: rgba(255,255,255,0.55); }
-
-  /* ════════════════════════════════════
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EarCare Capsule – Natural Hearing Support</title>
+  <link href="https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #D10000;
+      --red-bright: #FF1A1A;
+      --red-dark: #8B0000;
+      --red-glow: rgba(209, 0, 0, 0.35);
+      --black: #000000;
+      --black2: #0D0000;
+      --black3: #1a0000;
+      --white: #FFFFFF;
+      --off-white: #F5F0F0;
+      --text-sec: #F5F0F0;
+      --gold: #C8991A;
+      --font: 'Halant', serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      font-family: var(--font);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 450px;
+      background: var(--black2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ─── NOISE TEXTURE ─── */
+    .page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.04;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--black);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--red);
+      border-radius: 2px;
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+      margin-bottom: 10px;
+    }
+
+    .sec-head {
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--white);
+    }
+
+    .sec-head span {
+      color: var(--red-bright);
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--red);
+      margin: 12px 0;
+    }
+
+    
+   
+  
+    .hero {
+      background: linear-gradient(160deg, #1a0000 0%, #000 60%);
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-top-bar {
+      background: var(--red);
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      animation: pulse-bar 2.5s infinite;
+    }
+
+    @keyframes pulse-bar {
+
+      0%,
+      100% {
+        background: var(--red);
+      }
+
+      50% {
+        background: var(--red-dark);
+      }
+    }
+
+    .hero-inner {
+      padding: 30px 24px 0;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: var(--red-bright);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .hero-headline {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--red-bright);
+      display: block;
+    }
+
+    .hero-bullets {
+      list-style: none;
+      margin-bottom: 22px;
+    }
+
+    .hero-bullets li {
+      font-size: 1.05rem;
+      color: var(--text-sec);
+      padding: 8px 0 8px 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(209, 0, 0, 0.15);
+      line-height: 1.5;
+    }
+
+    .hero-bullets li::before {
+      content: '▸';
+      color: var(--red-bright);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      font-size: 1.1rem;
+    }
+
+    .hero-img-wrap {
+      position: relative;
+      margin: 0 -24px;
+      overflow: hidden;
+    }
+
+    .hero-img-wrap img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(0 -20px 40px rgba(209, 0, 0, 0.5));
+    }
+
+    .hero-img-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(to top, var(--black2), transparent);
+    }
+
+    .hero-cta-wrap {
+      padding: 20px 0 30px;
+      text-align: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 6px 28px var(--red-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: left 0.4s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px var(--red-glow);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    
+  
+    .pain-sec {
+      background: linear-gradient(180deg, #0D0000 0%, #100000 100%);
+      padding: 40px 24px;
+    }
+
+    /* ── Pain Flow Timeline ── */
+    .pain-flow {
+      display: flex;
+      flex-direction: column;
+      margin-top: 24px;
+    }
+
+    .pain-flow-item {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .pain-flow-icon {
+      width: 158px;
+      height: 158px;
+      min-width: 158px;
+      border-radius: 50%;
+      background: #1E0000;
+      border: 3px solid var(--red);
+      box-shadow: 0 0 20px rgba(209, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      margin-right: -18px;
+      overflow: hidden;
+    }
+
+    .pain-flow-icon img {
+      width: 146px;
+      height: 146px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .pain-flow-card {
+      flex: 1;
+      background: rgba(139, 0, 0, 0.13);
+      border: 2px solid rgba(209, 0, 0, 0.4);
+      border-radius: 14px;
+      padding: 14px 16px 14px 28px;
+      min-height: 82px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .pain-flow-title {
+      font-size: 1.08rem;
+      font-weight: 900;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .pain-flow-title span {
+      color: var(--red-bright);
+    }
+
+    .pain-flow-desc {
+      font-size: 0.88rem;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    /* Zigzag connecting arrows */
+    .pain-connector {
+      height: 52px;
+      position: relative;
+    }
+
+    .pain-connector.c-left {
+      /* ╰ shape: goes down left side, ends bottom-right */
+      border-left: 3px solid rgba(209, 0, 0, 0.65);
+      border-bottom: 3px solid rgba(209, 0, 0, 0.65);
+      border-bottom-left-radius: 30px;
+      margin-right: 50%;
+      margin-left: 18px;
+    }
+
+    .pain-connector.c-left::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      right: -6px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid rgba(209, 0, 0, 0.9);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+
+    .pain-connector.c-right {
+      /* ╯ shape: goes down right side, ends bottom-left */
+      border-right: 3px solid rgba(209, 0, 0, 0.65);
+      border-bottom: 3px solid rgba(209, 0, 0, 0.65);
+      border-bottom-right-radius: 30px;
+      margin-left: 50%;
+      margin-right: 18px;
+    }
+
+    .pain-connector.c-right::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: -6px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid rgba(209, 0, 0, 0.9);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+
+    .pain-card {
+      background: rgba(209, 0, 0, 0.08);
+      border: 1px solid rgba(209, 0, 0, 0.25);
+      border-radius: 4px;
+      padding: 16px 12px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .pain-card:hover {
+      background: rgba(209, 0, 0, 0.16);
+      border-color: var(--red);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(209, 0, 0, 0.25);
+    }
+
+    .pain-card:active {
+      transform: translateY(-1px);
+    }
+
+    .pain-card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .pain-card-text {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      line-height: 1.4;
+    }
+
+    /* ── Cause Mind Map ── */
+    .cause-mindmap {
+      margin-top: 24px;
+    }
+
+    .cause-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .cause-mcard {
+      background: rgba(80, 0, 0, 0.3);
+      border: 2px solid rgba(209, 0, 0, 0.5);
+      border-radius: 14px;
+      padding: 44px 10px 14px;
+      text-align: center;
+      position: relative;
+      margin-top: 22px;
+      box-shadow: 4px 4px 0 rgba(100, 0, 0, 0.55);
+    }
+
+    .cause-mcard-tab {
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--red);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 1.4rem;
+      padding: 5px 13px;
+      border-radius: 8px 8px 0 0;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      border: 2px solid rgba(255, 80, 80, 0.55);
+      border-bottom: none;
+    }
+
+    .cause-mcard img {
+      width: 122px;
+      height: 122px;
+      /* border-radius: 50%; */
+      clip-path: polygon(0% 15%, 0 0, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 100% 100%, 85% 100%, 15% 100%, 15% 84%, 0 84%);
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 10px;
+      border: 3px solid rgba(209, 0, 0, 0.6);
+      box-shadow: 0 0 14px rgba(209, 0, 0, 0.35);
+    }
+
+    .cause-mcard span {
+      display: block;
+      font-size: 1rem;
+      color: var(--text-sec);
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    /* Curved arrows */
+    .cause-arrows {
+      display: flex;
+      height: 38px;
+      margin: 0 10px;
+    }
+
+    .cause-arrow-l {
+      flex: 1;
+      border-right: 2px solid rgba(209, 0, 0, 0.65);
+      border-bottom: 2px solid rgba(209, 0, 0, 0.65);
+      border-bottom-right-radius: 22px;
+      position: relative;
+      margin-right: 4px;
+    }
+
+    .cause-arrow-l::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      right: -7px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 9px solid rgba(209, 0, 0, 0.9);
+    }
+
+    .cause-arrow-r {
+      flex: 1;
+      border-left: 2px solid rgba(209, 0, 0, 0.65);
+      border-bottom: 2px solid rgba(209, 0, 0, 0.65);
+      border-bottom-left-radius: 22px;
+      position: relative;
+      margin-left: 4px;
+    }
+
+    .cause-arrow-r::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: -7px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 9px solid rgba(209, 0, 0, 0.9);
+    }
+
+    .cause-arrows.up .cause-arrow-l {
+      border-bottom: none;
+      border-right: none;
+      border-top: 2px solid rgba(209, 0, 0, 0.65);
+      border-left: 2px solid rgba(209, 0, 0, 0.65);
+      border-top-left-radius: 22px;
+      border-bottom-right-radius: 0;
+    }
+
+    .cause-arrows.up .cause-arrow-l::after {
+      bottom: auto;
+      right: auto;
+      top: -8px;
+      left: -7px;
+      border-top: none;
+      border-bottom: 9px solid rgba(209, 0, 0, 0.9);
+    }
+
+    .cause-arrows.up .cause-arrow-r {
+      border-bottom: none;
+      border-left: none;
+      border-top: 2px solid rgba(209, 0, 0, 0.65);
+      border-right: 2px solid rgba(209, 0, 0, 0.65);
+      border-top-right-radius: 22px;
+      border-bottom-left-radius: 0;
+    }
+
+    .cause-arrows.up .cause-arrow-r::after {
+      bottom: auto;
+      left: auto;
+      top: -8px;
+      right: -7px;
+      border-top: none;
+      border-bottom: 9px solid rgba(209, 0, 0, 0.9);
+    }
+
+    /* Center box */
+    .cause-center-box {
+      background: var(--red-dark);
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 14px 18px;
+      text-align: center;
+      margin: 0 12px;
+      box-shadow: 0 0 28px rgba(209, 0, 0, 0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .cause-center-icon {
+      font-size: 3rem;
+      margin-bottom: 2px;
+    }
+
+    .cause-center-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 0.5px;
+      font-style: italic;
+    }
+
+    .cause-center-sub {
+      font-size: 1.5rem;
+      color: rgba(243, 222, 222, 0.892);
+      margin-top: 3px;
+    }
+
+    .pain-note {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: var(--red-dark);
+      clip-path: polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.4;
+    }
+
+
+  
+    .product-sec {
+      background: #000;
+      padding: 40px 24px;
+      position: relative;
+    }
+
+    .product-sec::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+
+    .product-reveal {
+      display: flex;
+      gap: 18px;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .product-img-side {
+      flex-shrink: 0;
+      width: 420px;
+      height: 420px;
+      position: relative;
+    }
+
+    .product-img-side img {
+      width: 100%;
+      clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+      filter: drop-shadow(0 0 20px rgba(209, 0, 0, 0.5));
+      transition: filter 0.4s;
+    }
+
+    .product-img-side:hover img {
+      filter: drop-shadow(0 0 32px rgba(255, 26, 26, 0.75));
+    }
+
+    .product-text-side {
+      flex: 1;
+      width: 100%;
+    }
+
+    .product-label {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      clip-path: polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%);
+    }
+
+    .product-name {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .product-name span {
+      color: var(--red-bright);
+    }
+
+    .product-name-sub {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .product-tagline {
+      font-size: 0.97rem;
+      color: var(--text-sec);
+      margin-bottom: 14px;
+      line-height: 1.6;
+      padding-left: 10px;
+      border-left: 3px solid var(--red);
+    }
+
+    .product-stats {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .product-stat {
+      flex: 1;
+      background: rgba(209, 0, 0, 0.12);
+      border: 1px solid rgba(209, 0, 0, 0.3);
+      border-radius: 6px;
+      padding: 8px 6px;
+      text-align: center;
+    }
+
+    .product-stat-val {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--red-bright);
+      line-height: 1;
+    }
+
+    .product-stat-lbl {
+      font-size: 0.68rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 2px;
+      line-height: 1.3;
+    }
+
+    .product-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      background: rgba(209, 0, 0, 0.18);
+      border: 1px solid var(--red-dark);
+      color: var(--off-white);
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 2px;
+      font-weight: 500;
+    }
+
+    .for-whom {
+      margin-top: 22px;
+      background: rgba(209, 0, 0, 0.07);
+      border: 1px solid rgba(209, 0, 0, 0.2);
+      border-radius: 4px;
+      padding: 16px;
+    }
+
+    .for-whom-head {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--red-bright);
+      margin-bottom: 10px;
+    }
+
+    .for-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(209, 0, 0, 0.1);
+      font-size: 1rem;
+      color: var(--text-sec);
+    }
+
+    .for-item:last-child {
+      border-bottom: none;
+    }
+
+    .for-item img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+      flex-shrink: 0;
+    }
+
+    
+  
+  
+    .mechanism-sec {
+      background: linear-gradient(160deg, #0D0000 0%, #000 100%);
+      padding: 40px 24px;
+    }
+
+    .mech-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .mech-card {
+      background: rgba(209, 0, 0, 0.06);
+      border: 1px solid rgba(209, 0, 0, 0.18);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      transition: all 0.35s;
+      cursor: default;
+      position: relative;
+    }
+
+    .mech-card:hover {
+      border-color: var(--red);
+      background: rgba(209, 0, 0, 0.14);
+      transform: translateX(6px);
+    }
+
+    .mech-card:active {
+      transform: translateX(2px);
+    }
+
+    .mech-img-col {
+      width: 150px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mech-img-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
+      transition: transform 0.4s;
+    }
+
+    .mech-card:hover .mech-img-col img {
+      transform: scale(1.08);
+    }
+
+    .mech-content {
+      padding: 16px 14px;
+      flex: 1;
+    }
+
+    .mech-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: rgba(209, 0, 0, 0.25);
+      line-height: 1;
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+    }
+
+    .mech-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--red-bright);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mech-title span {
+      font-size: 1.2rem;
+    }
+
+    .mech-desc {
+      font-size: 1rem;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    
+
+  
+    .ayur-sec {
+      background: #000;
+      padding: 40px 24px;
+      position: relative;
+    }
+
+    .ayur-visual {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ayur-img-full {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      clip-path: polygon(0 0, 100% 0, 100% 88%, 94% 100%, 6% 100%, 0 88%);
+      transition: filter 0.3s;
+      filter: saturate(0.7) sepia(0.2);
+    }
+
+    .ayur-img-full:hover {
+      filter: saturate(1) sepia(0);
+    }
+
+    .ayur-content-box {
+      background: rgba(139, 0, 0, 0.12);
+      border: 1px solid rgba(209, 0, 0, 0.22);
+      border-radius: 4px;
+      padding: 20px;
+    }
+
+    .ayur-lead {
+      font-size: 1.1rem;
+      color: var(--text-sec);
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .ayur-lead strong {
+      color: var(--red-bright);
+    }
+
+    .ayur-points {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 6px;
+    }
+
+    /* Each timeline row */
+    .ayur-tl-item {
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    /* Number + title label strip */
+    .ayur-tl-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      padding-left: 2px;
+    }
+
+    .ayur-tl-label span {
+      color: var(--red-bright);
+      font-size: 1rem;
+      margin-right: 6px;
+    }
+
+    /* Pill card with alternating image side */
+    .ayur-tl-card {
+      display: flex;
+      align-items: center;
+      background: rgba(80, 0, 0, 0.25);
+      border: 2px solid rgba(209, 0, 0, 0.35);
+      border-radius: 999px;
+      /* pill shape */
+      overflow: hidden;
+      box-shadow: 4px 4px 0 rgba(100, 0, 0, 0.5);
+      min-height: 100px;
+    }
+
+    .ayur-tl-card.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .ayur-tl-img {
+      width: 120px;
+      height: 120px;
+      min-width: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(209, 0, 0, 0.6);
+      box-shadow: 0 0 16px rgba(209, 0, 0, 0.4);
+      margin: 6px;
+      flex-shrink: 0;
+    }
+
+    .ayur-tl-body {
+      flex: 1;
+      padding: 14px 18px 14px 10px;
+    }
+
+    .ayur-tl-card.reverse .ayur-tl-body {
+      padding: 14px 10px 14px 18px;
+      text-align: right;
+    }
+
+    .ayur-tl-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 4px;
+      font-style: italic;
+    }
+
+    .ayur-tl-desc {
+      font-size: 0.85rem;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    /* Vertical connector between items */
+    .ayur-tl-connector {
+      width: 2px;
+      height: 22px;
+      background: linear-gradient(to bottom, rgba(209, 0, 0, 0.6), transparent);
+      margin: 0 auto;
+    }
+
+    
+  
+    .compare-sec {
+      background: linear-gradient(180deg, #0D0000 0%, #050000 100%);
+      padding: 40px 24px;
+    }
+
+    .compare-table {
+      margin-top: 24px;
+      border: 1px solid rgba(209, 0, 0, 0.25);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .compare-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      background: var(--red-dark);
+    }
+
+    .compare-header div {
+      padding: 12px 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+
+    .compare-header div:first-child {
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid rgba(209, 0, 0, 0.12);
+      transition: background 0.25s;
+      cursor: default;
+    }
+
+    .compare-row:hover {
+      background: rgba(209, 0, 0, 0.08);
+    }
+
+    .compare-row div {
+      padding: 12px 8px;
+      font-size: 0.92rem;
+      color: var(--text-sec);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .compare-row div:first-child {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      border-right: 1px solid rgba(209, 0, 0, 0.12);
+    }
+
+    .compare-row div:last-child {
+      color: #66FF88;
+      font-weight: 600;
+    }
+
+    .compare-row div:nth-child(2) {
+      color: rgba(255, 180, 180, 0.8);
+      border-right: 1px solid rgba(209, 0, 0, 0.12);
+    }
+
+  
+    .ba-sec {
+      background: #000;
+      padding: 40px 24px;
+      position: relative;
+    }
+
+    .ba-sec::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+
+    .ba-container {
+      margin-top: 24px;
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(209, 0, 0, 0.3);
+    }
+
+    .ba-labels {
+      display: flex;
+      position: absolute;
+      top: 14px;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .ba-labels .lbl {
+      flex: 1;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 5px 10px;
+    }
+
+    .ba-labels .lbl-before {
+      background: rgba(0, 0, 0, 0.75);
+      color: rgba(255, 180, 180, 0.9);
+    }
+
+    .ba-labels .lbl-after {
+      background: rgba(209, 0, 0, 0.8);
+      color: var(--white);
+    }
+
+    .ba-slider-wrap {
+      position: relative;
+      width: 100%;
+      user-select: none;
+    }
+
+    .ba-img-before,
+    .ba-img-after {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ba-img-after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      clip-path: inset(0 50% 0 0);
+      filter: saturate(1.2);
+    }
+
+    .ba-divider-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: var(--red);
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+
+    .ba-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 42px;
+      height: 42px;
+      background: var(--red);
+      border-radius: 50%;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: ew-resize;
+      box-shadow: 0 0 16px rgba(209, 0, 0, 0.6);
+      transition: box-shadow 0.2s;
+    }
+
+    .ba-handle:hover {
+      box-shadow: 0 0 28px rgba(255, 26, 26, 0.8);
+    }
+
+    .ba-points {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .ba-point {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 12px;
+      border: 1px solid rgba(209, 0, 0, 0.15);
+      border-radius: 4px;
+      transition: border-color 0.3s, background 0.3s;
+      cursor: default;
+    }
+
+    .ba-point:hover {
+      border-color: var(--red);
+      background: rgba(209, 0, 0, 0.07);
+    }
+
+    .ba-before-text {
+      font-size: 0.88rem;
+      color: rgba(255, 180, 180, 0.8);
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .ba-arrow {
+      color: var(--red);
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .ba-after-text {
+      font-size: 0.88rem;
+      color: #77EE99;
+      text-align: right;
+      line-height: 1.4;
+    }
+  
+    .reviews-sec {
+      background: linear-gradient(170deg, #0D0000 0%, #000 100%);
+      padding: 40px 24px;
+    }
+
+    .reviews-scroll {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .review-card {
+      background: rgba(209, 0, 0, 0.06);
+      border: 1px solid rgba(209, 0, 0, 0.18);
+      border-radius: 14px;
+      padding: 20px 18px 16px;
+      transition: all 0.3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .review-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      font-size: 5rem;
+      color: rgba(209, 0, 0, 0.12);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .review-card:hover {
+      border-color: var(--red);
+      background: rgba(209, 0, 0, 0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(209, 0, 0, 0.2);
+    }
+
+    .review-card:active {
+      transform: translateY(-1px);
+    }
+
+    .review-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    /* Avatar ring wrapper */
+    .av-ring {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--red-bright), var(--red-dark));
+      box-shadow: 0 0 16px rgba(209,0,0,0.45);
+    }
+
+    .review-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #1a0000;
+    }
+
+    .review-meta {
+      flex: 1;
+    }
+
+    .review-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .review-age {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    /* Custom Audio Player */
+    .ap-wrap {
+      background: rgba(209,0,0,0.08);
+      border: 1.5px solid rgba(209,0,0,0.35);
+      border-radius: 50px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .ap-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--red);
+      border: none;
+      color: #fff;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 0 10px rgba(209,0,0,0.4);
+    }
+
+    .ap-btn:hover { background: var(--red-bright); transform: scale(1.08); }
+    .ap-btn:active { transform: scale(0.96); }
+
+    .ap-bar-wrap {
+      flex: 1;
+      height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 99px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .ap-bar-fill {
+      height: 100%;
+      background: var(--red);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .ap-time {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      min-width: 30px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+  
+    .ingredients-sec {
+      background: #000;
+      padding: 40px 24px;
+      position: relative;
+    }
+
+    .ingr-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .ingr-card {
+      border: 1px solid rgba(209, 0, 0, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.35s;
+      cursor: default;
+      position: relative;
+    }
+
+    .ingr-card:hover {
+      border-color: var(--red);
+      transform: scale(1.04);
+      box-shadow: 0 6px 22px rgba(209, 0, 0, 0.25);
+      z-index: 2;
+    }
+
+    .ingr-card:active {
+      transform: scale(1.01);
+    }
+
+    .ingr-img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+      filter: saturate(0.6);
+      transition: filter 0.3s;
+    }
+
+    .ingr-card:hover .ingr-img {
+      filter: saturate(1.2);
+    }
+
+    .ingr-info {
+      padding: 10px 10px 12px;
+      background: rgba(209, 0, 0, 0.07);
+    }
+
+    .ingr-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .ingr-benefit {
+      font-size: 0.82rem;
+      color: rgba(255, 200, 200, 0.8);
+    }
+
+    .ingr-note {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text-sec);
+      padding: 12px;
+      border: 1px dashed rgba(209, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+
+    .ingr-note strong {
+      color: var(--red-bright);
+    }
+  
+    .usage-sec {
+      background: linear-gradient(160deg, #0D0000 0%, #000 100%);
+      padding: 40px 24px;
+    }
+
+    .usage-timeline {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .usage-step {
+      position: relative;
+      cursor: default;
+    }
+
+    .usage-step-num {
+      position: absolute;
+      top: -14px;
+      left: 20px;
+      width: 36px;
+      height: 36px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--white);
+      z-index: 2;
+      box-shadow: 0 0 14px rgba(209, 0, 0, 0.6);
+      border: 2px solid var(--black2);
+    }
+
+    .usage-card {
+      background: rgba(209, 0, 0, 0.08);
+      border: 2px solid rgba(209, 0, 0, 0.3);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.3s;
+      padding-top: 24px;
+    }
+
+    .usage-card:hover {
+      background: rgba(209, 0, 0, 0.15);
+      border-color: var(--red);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(209, 0, 0, 0.25);
+    }
+
+    .usage-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      clip-path: none;
+      border-radius: 0;
+      filter: brightness(0.9);
+      transition: filter 0.3s;
+    }
+
+    .usage-card:hover .usage-img {
+      filter: brightness(1);
+    }
+
+    .usage-text {
+      padding: 16px 18px 18px;
+    }
+
+    .usage-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--red-bright);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .usage-desc {
+      font-size: 1rem;
+      color: var(--text-sec);
+      line-height: 1.55;
+    }
+  
+    .cert-sec {
+      background: #000;
+      padding: 40px 24px;
+    }
+
+    .cert-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: rgba(209, 0, 0, 0.08);
+      border: 2px solid rgba(209, 0, 0, 0.3);
+      border-radius: 14px;
+      padding: 16px 20px;
+      transition: all 0.3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cert-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--red);
+      border-radius: 4px 0 0 4px;
+    }
+
+    .cert-item:nth-child(even)::before {
+      background: var(--red-bright);
+    }
+
+    .cert-item:hover {
+      background: rgba(209, 0, 0, 0.16);
+      border-color: var(--red);
+      transform: translateX(4px);
+      box-shadow: -4px 0 20px rgba(209, 0, 0, 0.3);
+    }
+
+    .cert-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 3px solid rgba(209, 0, 0, 0.5);
+      box-shadow: 0 0 18px rgba(209, 0, 0, 0.35);
+    }
+
+    .cert-item-text {
+      flex: 1;
+    }
+
+    .cert-label {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    .cert-sub {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.4;
+    }
+
+    .cert-badge {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: var(--red-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    
      OFFER SECTION
-  ════════════════════════════════════ */
-  .offer-sec {
-    background: linear-gradient(160deg, #150000 0%, #0D0000 100%);
-    padding: 40px 24px;
-    position: relative;
-    overflow: hidden;
-  }
-  .offer-sec::before {
-    content: '';
-    position: absolute;
-    top: -100px; right: -100px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(209,0,0,0.12), transparent 70%);
-    pointer-events: none;
-  }
+  
+    .offer-sec {
+      background: linear-gradient(160deg, #150000 0%, #0D0000 100%);
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
 
-  .offer-banner {
-    background: var(--red);
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 20px;
-    clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    animation: offer-glow 2s infinite;
-  }
-  @keyframes offer-glow {
-    0%,100% { box-shadow: 0 0 0 rgba(209,0,0,0); }
-    50% { box-shadow: 0 0 24px rgba(209,0,0,0.6); }
-  }
+    .offer-sec::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(209, 0, 0, 0.12), transparent 70%);
+      pointer-events: none;
+    }
 
-  .offer-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .offer-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: rgba(209,0,0,0.09);
-    border: 2px solid rgba(209,0,0,0.25);
-    border-radius: 4px;
-    padding: 16px;
-    transition: all 0.35s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .offer-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-    transition: left 0.5s;
-  }
-  .offer-card:hover::after { left: 150%; }
-  .offer-card:hover {
-    border-color: var(--red);
-    background: rgba(209,0,0,0.18);
-    transform: scale(1.02);
-  }
-  .offer-card:active { transform: scale(0.99); }
-  .offer-card.featured { border-color: var(--red); background: rgba(209,0,0,0.18); }
+    .offer-img-wrap {
+      margin: 20px 0 24px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(209,0,0,0.3);
+      box-shadow: 0 8px 32px rgba(209,0,0,0.22), 0 0 0 4px rgba(209,0,0,0.07);
+      line-height: 0;
+    }
 
-  .offer-discount {
-    flex-shrink: 0;
-    width: 64px; height: 64px;
-    background: var(--red);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.05rem;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.1;
-    color: var(--white);
-  }
+    .offer-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      border-radius: 14px;
+    }
 
-  .offer-details { flex: 1; }
-  .offer-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 3px;
-  }
-  .offer-desc { font-size: 0.88rem; color: var(--text-sec); line-height: 1.4; }
-  .offer-check { color: var(--red-bright); font-size: 1.2rem; }
+    .offer-banner {
+      background: var(--red);
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 20px;
+      clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      animation: offer-glow 2s infinite;
+    }
 
-  .freebies {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 24px;
-    padding: 16px;
-    background: rgba(209,0,0,0.06);
-    border: 1px dashed rgba(209,0,0,0.35);
-    border-radius: 4px;
-  }
-  .freebie {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-    color: var(--text-sec);
-  }
-  .freebie span.ico { font-size: 1.3rem; }
-  .freebie strong { color: #66FF88; }
+    @keyframes offer-glow {
 
-  /* ════════════════════════════════════
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(209, 0, 0, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 24px rgba(209, 0, 0, 0.6);
+      }
+    }
+
+    .offer-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .offer-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(209, 0, 0, 0.09);
+      border: 2px solid rgba(209, 0, 0, 0.25);
+      border-radius: 4px;
+      padding: 16px;
+      transition: all 0.35s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+      transition: left 0.5s;
+    }
+
+    .offer-card:hover::after {
+      left: 150%;
+    }
+
+    .offer-card:hover {
+      border-color: var(--red);
+      background: rgba(209, 0, 0, 0.18);
+      transform: scale(1.02);
+    }
+
+    .offer-card:active {
+      transform: scale(0.99);
+    }
+
+    .offer-card.featured {
+      border-color: var(--red);
+      background: rgba(209, 0, 0, 0.18);
+    }
+
+    .offer-discount {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      background: var(--red);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .offer-details {
+      flex: 1;
+    }
+
+    .offer-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .offer-desc {
+      font-size: 0.88rem;
+      color: var(--text-sec);
+      line-height: 1.4;
+    }
+
+    .offer-check {
+      color: var(--red-bright);
+      font-size: 1.2rem;
+    }
+
+    .freebies {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: rgba(209, 0, 0, 0.06);
+      border: 1px dashed rgba(209, 0, 0, 0.35);
+      border-radius: 4px;
+    }
+
+    .freebie {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      color: var(--text-sec);
+    }
+
+    .freebie span.ico {
+      font-size: 1.3rem;
+    }
+
+    .freebie strong {
+      color: #66FF88;
+    }
+
+    
      ORDER FORM
-  ════════════════════════════════════ */
-  .order-sec {
-    background: linear-gradient(170deg, #0D0000 0%, #000 100%);
-    padding: 40px 24px;
-    position: relative;
-  }
+  
+    .order-sec {
+      background: linear-gradient(170deg, #0D0000 0%, #000 100%);
+      padding: 40px 24px;
+      position: relative;
+    }
 
-  .order-sec::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--red-dark), var(--red), var(--red-dark));
-  }
+    .order-sec::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red-dark), var(--red), var(--red-dark));
+    }
 
-  .order-form {
-    background: rgba(209,0,0,0.05);
-    border: 1px solid rgba(209,0,0,0.2);
-    border-radius: 6px;
-    padding: 24px 18px;
-    margin-top: 20px;
-  }
+    .order-form {
+      background: rgba(209, 0, 0, 0.05);
+      border: 1px solid rgba(209, 0, 0, 0.2);
+      border-radius: 6px;
+      padding: 24px 18px;
+      margin-top: 20px;
+    }
 
-  .form-group {
-    margin-bottom: 16px;
-  }
-  .form-label {
-    display: block;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 6px;
-    letter-spacing: 0.5px;
-  }
-  .form-input {
-    width: 100%;
-    background: rgba(0,0,0,0.6);
-    border: 1px solid rgba(209,0,0,0.3);
-    color: var(--white);
-    font-family: var(--font);
-    font-size: 1rem;
-    padding: 12px 14px;
-    border-radius: 3px;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  .form-input:focus {
-    border-color: var(--red);
-    box-shadow: 0 0 12px rgba(209,0,0,0.25);
-  }
-  .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-  select.form-input option { background: #1a0000; }
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
 
-  .order-cta {
-    width: 100%;
-    margin-top: 8px;
-    padding: 18px;
-    background: linear-gradient(135deg, var(--red), var(--red-dark));
-    color: var(--white);
-    border: none;
-    font-family: var(--font);
-    font-size: 1.3rem;
-    font-weight: 700;
-    cursor: pointer;
-    clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%);
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-  }
-  .order-cta::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-    transition: left 0.45s;
-  }
-  .order-cta:hover::before { left: 100%; }
-  .order-cta:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 32px rgba(209,0,0,0.5);
-  }
-  .order-cta:active { transform: translateY(0); }
+    .form-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(209, 0, 0, 0.3);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 1rem;
+      padding: 12px 14px;
+      border-radius: 3px;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
 
-  .order-cta.loading {
-    pointer-events: none;
-    opacity: 0.8;
-  }
-  .spinner {
-    display: inline-block;
-    width: 20px; height: 20px;
-    border: 3px solid rgba(255,255,255,0.3);
-    border-top-color: var(--white);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    vertical-align: middle;
-    margin-right: 8px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+    .form-input:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 12px rgba(209, 0, 0, 0.25);
+    }
 
-  .cod-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 14px;
-    padding: 10px;
-    background: rgba(0,0,0,0.5);
-    border: 1px solid rgba(209,0,0,0.2);
-    border-radius: 4px;
-    font-size: 0.92rem;
-    color: var(--text-sec);
-  }
-  .cod-badge span { font-size: 1.3rem; }
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
 
-  .success-msg {
-    display: none;
-    text-align: center;
-    padding: 24px;
-    background: rgba(0,80,0,0.2);
-    border: 1px solid #22AA44;
-    border-radius: 6px;
-    margin-top: 16px;
-  }
-  .success-msg.show { display: block; }
-  .success-msg h3 { color: #44DD77; font-size: 1.3rem; margin-bottom: 8px; }
-  .success-msg p { color: var(--text-sec); font-size: 0.95rem; }
+    select.form-input option {
+      background: #1a0000;
+    }
 
-  /* ════════════════════════════════════
+    .order-cta {
+      width: 100%;
+      margin-top: 8px;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white);
+      border: none;
+      font-family: var(--font);
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%);
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .order-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+      transition: left 0.45s;
+    }
+
+    .order-cta:hover::before {
+      left: 100%;
+    }
+
+    .order-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(209, 0, 0, 0.5);
+    }
+
+    .order-cta:active {
+      transform: translateY(0);
+    }
+
+    .order-cta.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .cod-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(209, 0, 0, 0.2);
+      border-radius: 4px;
+      font-size: 0.92rem;
+      color: var(--text-sec);
+    }
+
+    .cod-badge span {
+      font-size: 1.3rem;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 24px;
+      background: rgba(0, 80, 0, 0.2);
+      border: 1px solid #22AA44;
+      border-radius: 6px;
+      margin-top: 16px;
+    }
+
+    .success-msg.show {
+      display: block;
+    }
+
+    .success-msg h3 {
+      color: #44DD77;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .success-msg p {
+      color: var(--text-sec);
+      font-size: 0.95rem;
+    }
+
+    
      FAQ
-  ════════════════════════════════════ */
-  .faq-sec {
-    background: #000;
-    padding: 40px 24px;
-  }
+  
+    .faq-sec {
+      background: #000;
+      padding: 40px 24px;
+    }
 
-  .faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 24px;
-  }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+    }
 
-  .faq-item {
-    border: 1px solid rgba(209,0,0,0.2);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
-  .faq-item.open { border-color: var(--red); }
+    .faq-item {
+      border: 1px solid rgba(209, 0, 0, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
 
-  .faq-q {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-    cursor: pointer;
-    background: rgba(209,0,0,0.05);
-    transition: background 0.3s;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--white);
-    gap: 10px;
-  }
-  .faq-q:hover { background: rgba(209,0,0,0.12); }
-  .faq-q .faq-icon {
-    flex-shrink: 0;
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--red-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    transition: transform 0.3s;
-    color: var(--white);
-  }
-  .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--red); }
+    .faq-item.open {
+      border-color: var(--red);
+    }
 
-  .faq-a {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s;
-  }
-  .faq-item.open .faq-a { max-height: 200px; }
-  .faq-a-inner {
-    padding: 14px 16px;
-    font-size: 0.97rem;
-    color: var(--text-sec);
-    line-height: 1.6;
-    border-top: 1px solid rgba(209,0,0,0.1);
-  }
-  .faq-a-inner strong { color: var(--red-bright); }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      cursor: pointer;
+      background: rgba(209, 0, 0, 0.05);
+      transition: background 0.3s;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      gap: 10px;
+    }
 
-  /* ════════════════════════════════════
+    .faq-q:hover {
+      background: rgba(209, 0, 0, 0.12);
+    }
+
+    .faq-q .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--red-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+      color: var(--white);
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--red);
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 200px;
+    }
+
+    .faq-a-inner {
+      padding: 14px 16px;
+      font-size: 0.97rem;
+      color: var(--text-sec);
+      line-height: 1.6;
+      border-top: 1px solid rgba(209, 0, 0, 0.1);
+    }
+
+    .faq-a-inner strong {
+      color: var(--red-bright);
+    }
+
+    
      DISCLAIMER
-  ════════════════════════════════════ */
-  .disclaimer-sec {
-    background: #050000;
-    padding: 24px;
-    border-top: 1px solid rgba(209,0,0,0.15);
-  }
-  .disclaimer-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .disclaimer-text {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.3);
-    line-height: 1.7;
-  }
+  
+    .disclaimer-sec {
+      background: #050000;
+      padding: 24px;
+      border-top: 1px solid rgba(209, 0, 0, 0.15);
+    }
 
-  /* ════════════════════════════════════
+    .disclaimer-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .disclaimer-text {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.3);
+      line-height: 1.7;
+    }
+
+    
      STICKY CTA BAR
-  ════════════════════════════════════ */
-  .sticky-bar {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 450px;
-    background: rgba(0,0,0,0.95);
-    border-top: 2px solid var(--red);
-    padding: 12px 20px;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    backdrop-filter: blur(8px);
-  }
-  .sticky-bar-text {
-    flex: 1;
-    font-size: 0.88rem;
-    color: var(--text-sec);
-    line-height: 1.3;
-  }
-  .sticky-bar-text strong { color: var(--red-bright); display: block; font-size: 1rem; }
+  
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 450px;
+      background: rgba(0, 0, 0, 0.95);
+      border-top: 2px solid var(--red);
+      padding: 12px 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(8px);
+    }
 
-  .sticky-btn {
-    flex-shrink: 0;
-    background: var(--red);
-    color: var(--white);
-    font-family: var(--font);
-    font-size: 0.9rem;
-    font-weight: 700;
-    padding: 10px 18px;
-    border: none;
-    cursor: pointer;
-    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
-    text-decoration: none;
-    transition: all 0.25s;
-    white-space: nowrap;
-  }
-  .sticky-btn:hover { background: var(--red-bright); transform: scale(1.04); }
+    .sticky-bar-text {
+      flex: 1;
+      font-size: 0.88rem;
+      color: var(--text-sec);
+      line-height: 1.3;
+    }
 
-  /* ════════════════════════════════════
-     FOOTER PAD (for sticky bar)
-  ════════════════════════════════════ */
-  .footer-pad { height: 70px; background: #050000; }
+    .sticky-bar-text strong {
+      color: var(--red-bright);
+      display: block;
+      font-size: 1rem;
+    }
 
-  /* ════════════════════════════════════
-     ENTRANCE ANIMATIONS
-  ════════════════════════════════════ */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    .sticky-btn {
+      flex-shrink: 0;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+      text-decoration: none;
+      transition: all 0.25s;
+      white-space: nowrap;
+    }
 
-  /* ─── RED LINE SEPARATOR ─── */
-  .red-line {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--red), transparent);
-    margin: 0;
-  }
-</style>
+    .sticky-btn:hover {
+      background: var(--red-bright);
+      transform: scale(1.04);
+    }
+
+
+  
+    .footer-pad {
+      height: 70px;
+      background: #050000;
+    }
+
+  
+  
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RED LINE SEPARATOR ─── */
+    .red-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      margin: 0;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="page">
+  <div class="page">
 
-  <!-- ══════════════ STICKY BAR ══════════════ -->
-  <div class="sticky-bar">
-    <div class="sticky-bar-text">
-      <strong>🔥 Limited Offer</strong>
-      अभी Order करें – COD उपलब्ध
+    <!-- ══════════════ STICKY BAR ══════════════ -->
+    <div class="sticky-bar">
+      <div class="sticky-bar-text">
+        <strong>🔥 Limited Offer</strong>
+        अभी Order करें – COD उपलब्ध
+      </div>
+      <a href="#order" class="sticky-btn">Order Now ▸</a>
     </div>
-    <a href="#order" class="sticky-btn">Order Now ▸</a>
+
+    <!-- ══════════════ HERO / HOOK ══════════════ -->
+    <section class="hero">
+      <div class="hero-img-wrap">
+        <img src="./Image/Hero.png" alt="EarCare Capsule Product" loading="lazy">
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ PAIN / PROBLEM ══════════════ -->
+    <section class="pain-sec fade-up">
+      <div class="tag">समस्या</div>
+      <h2 class="sec-head">क्या आप इन <span>situations</span> से गुजर रहे हैं?</h2>
+      <div class="divider"></div>
+
+      <div class="pain-flow">
+
+        <div class="pain-flow-item">
+          <div class="pain-flow-icon">
+            <img src="./Image/Problem1.png" alt="Repeat karna">
+          </div>
+          <div class="pain-flow-card">
+            <div class="pain-flow-title">बार-बार <span>Repeat</span></div>
+            <div class="pain-flow-desc">हर बात बार-बार <strong style="color:#FF6666">"क्या?"</strong> बोलकर समझनी पड़ती
+              है</div>
+          </div>
+        </div>
+
+        <div class="pain-connector c-left"></div>
+
+        <div class="pain-flow-item">
+          <div class="pain-flow-icon">
+            <img src="./Image/Problem2.png" alt="Machine dependency">
+          </div>
+          <div class="pain-flow-card">
+            <div class="pain-flow-title">Machine <span>Dependency</span></div>
+            <div class="pain-flow-desc">Hearing machine के बिना सुनना बहुत मुश्किल लगता है</div>
+          </div>
+        </div>
+
+        <div class="pain-connector c-right"></div>
+
+        <div class="pain-flow-item">
+          <div class="pain-flow-icon">
+            <img src="./Image/Problem3.png" alt="Clarity issue">
+          </div>
+          <div class="pain-flow-card">
+            <div class="pain-flow-title">Clarity <span>Issue</span></div>
+            <div class="pain-flow-desc">Machine के साथ भी clarity perfect नहीं आती</div>
+          </div>
+        </div>
+
+        <div class="pain-connector c-left"></div>
+
+        <div class="pain-flow-item">
+          <div class="pain-flow-icon">
+            <img src="./Image/Problem4.png" alt="Noisy places">
+          </div>
+          <div class="pain-flow-card">
+            <div class="pain-flow-title">Noisy <span>Places</span></div>
+            <div class="pain-flow-desc">Noisy जगहों में conversation समझना बहुत tough हो जाता है</div>
+          </div>
+        </div>
+
+        <div class="pain-connector c-right"></div>
+
+        <div class="pain-flow-item">
+          <div class="pain-flow-icon">
+            <img src="./Image/Problem5.png" alt="Social interaction">
+          </div>
+          <div class="pain-flow-card">
+            <div class="pain-flow-title">Social <span>Isolation</span></div>
+            <div class="pain-flow-desc">धीरे-धीरे social interaction कम होता जा रहा है</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cause-mindmap">
+
+        <!-- Top 2 cards -->
+        <div class="cause-row">
+          <div class="cause-mcard">
+            <div class="cause-mcard-tab">Ear Nerves</div>
+            <img src="./Image/Problem6.png" alt="Ear nerve weakness">
+            <span>Ear nerves की कमजोरी</span>
+          </div>
+          <div class="cause-mcard">
+            <div class="cause-mcard-tab">Aging</div>
+            <img src="./Image/Problem7.png" alt="Aging effect">
+            <span>Aging effect (उम्र का असर)</span>
+          </div>
+        </div>
+
+        <!-- Arrows: top cards → center -->
+        <div class="cause-arrows">
+          <div class="cause-arrow-l"></div>
+          <div class="cause-arrow-r"></div>
+        </div>
+
+        <!-- Center mind-map box -->
+        <div class="cause-center-box">
+          <div class="cause-center-icon">📌</div>
+          <div class="cause-center-title">कारण</div>
+          <div class="cause-center-sub">क्या हो सकता है?</div>
+        </div>
+
+        <!-- Arrows: center → bottom cards -->
+        <div class="cause-arrows up">
+          <div class="cause-arrow-l"></div>
+          <div class="cause-arrow-r"></div>
+        </div>
+
+        <!-- Bottom 2 cards -->
+        <div class="cause-row">
+          <div class="cause-mcard">
+            <div class="cause-mcard-tab">Noise</div>
+            <img src="./Image/Problem8.png" alt="Noise exposure">
+            <span>लगातार noise exposure</span>
+          </div>
+          <div class="cause-mcard">
+            <div class="cause-mcard-tab">Lifestyle</div>
+            <img src="./Image/Problem9.png" alt="Lifestyle stress">
+            <span>Lifestyle + Stress</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pain-note">
+        ⚠️ सिर्फ sound amplify करना (hearing machine) हमेशा root cause solve नहीं करता
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ PRODUCT INTRO ══════════════ -->
+    <section class="product-sec fade-up">
+      <div class="tag">Product</div>
+      <h2 class="sec-head"><span>EarCare Capsule</span></h2>
+      <div class="divider"></div>
+
+      <div class="product-reveal">
+        <div class="product-img-side">
+          <img src="./Image/Intro.png" alt="EarCare Capsule">
+        </div>
+        <div class="product-text-side">
+          <div class="product-label">Ayurvedic Formula</div>
+          <div class="product-name">Ear<span>Care</span><br>Capsule</div>
+          <span class="product-name-sub">Hearing Support Supplement</span>
+          <div class="product-tagline">एक Ayurvedic formulation जो specially designed है — ear nerves को nourish करे और
+            hearing support दे</div>
+          <div class="product-stats">
+            <div class="product-stat">
+              <div class="product-stat-val">100%</div>
+              <div class="product-stat-lbl">Ayurvedic</div>
+            </div>
+            <div class="product-stat">
+              <div class="product-stat-val">2–3</div>
+              <div class="product-stat-lbl">Months Course</div>
+            </div>
+            <div class="product-stat">
+              <div class="product-stat-val">COD</div>
+              <div class="product-stat-lbl">Available</div>
+            </div>
+          </div>
+          <div class="product-badges">
+            <span class="badge">✔ Ear Health Support</span>
+            <span class="badge">✔ Nerve Nourishment</span>
+            <span class="badge">✔ Listening Comfort</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ MECHANISM / HOW IT WORKS ══════════════ -->
+    <section class="mechanism-sec fade-up">
+      <div class="tag">कैसे काम करता है</div>
+      <h2 class="sec-head">EarCare Capsule <span>3 Level</span> पर काम करता है</h2>
+      <div class="divider"></div>
+
+      <div class="mech-cards">
+        <div class="mech-card">
+          <div class="mech-img-col">
+            <img src="./Image/Improve10.png" alt="Nerve Support">
+          </div>
+          <div class="mech-content">
+            <div class="mech-title"><span>🧠</span> Nerve Support</div>
+            <div class="mech-desc">कान की नसों को पोषण देकर signal processing improve करने में मदद</div>
+            <div class="mech-num">01</div>
+          </div>
+        </div>
+        <div class="mech-card">
+          <div class="mech-img-col">
+            <img src="./Image/Improve11.png" alt="Circulation Boost">
+          </div>
+          <div class="mech-content">
+            <div class="mech-title"><span>🔄</span> Circulation Boost</div>
+            <div class="mech-desc">Ear region में blood flow support करता है</div>
+            <div class="mech-num">02</div>
+          </div>
+        </div>
+        <div class="mech-card">
+          <div class="mech-img-col">
+            <img src="./Image/Improve12.png" alt="Natural Repair">
+          </div>
+          <div class="mech-content">
+            <div class="mech-title"><span>🌿</span> Natural Repair Support</div>
+            <div class="mech-desc">Internal weakness को धीरे-धीरे support करता है</div>
+            <div class="mech-num">03</div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="margin-top:18px;text-align:center;padding:14px;background:rgba(209,0,0,0.1);border:1px solid rgba(209,0,0,0.25);border-radius:4px;font-size:1.05rem;color:var(--text-sec);line-height:1.5;">
+        👉 जिससे hearing experience overall <strong style="color:#FF4444">better हो सकता है</strong>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ AYURVEDA ══════════════ -->
+    <section class="ayur-sec fade-up">
+      <div class="tag">Ayurveda</div>
+      <h2 class="sec-head">Ayurvedic <span>Recommendation</span></h2>
+      <div class="divider"></div>
+
+      <div class="ayur-visual">
+        <img src="./Image/Doctor.png" alt="Ayurveda Herbs" class="ayur-img-full">
+
+        <div class="ayur-content-box">
+          <div class="ayur-lead">
+            Ayurveda के अनुसार hearing issues का संबंध<br>
+            👉 <strong>"Vata imbalance + nerve weakness"</strong> से होता है
+          </div>
+          <div class="ayur-points">
+
+            <!-- 01 -->
+            <div class="ayur-tl-item">
+              <div class="ayur-tl-label"><span>01.</span> Herbal Nerve Support</div>
+              <div class="ayur-tl-card">
+                <img src="./Image/Improve13.png" alt="Nerve strengthen" class="ayur-tl-img">
+                <div class="ayur-tl-body">
+                  <div class="ayur-tl-title">🌿 Nerves Strengthen</div>
+                  <div class="ayur-tl-desc">Ear nerves को मजबूत करने में herbal ingredients का support मिलता है</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ayur-tl-connector"></div>
+
+            <!-- 02 -->
+            <div class="ayur-tl-item">
+              <div class="ayur-tl-label" style="text-align:right"><span>02.</span> Internal Balance</div>
+              <div class="ayur-tl-card reverse">
+                <img src="./Image/Improve14.png" alt="Balance restore" class="ayur-tl-img">
+                <div class="ayur-tl-body">
+                  <div class="ayur-tl-title">⚖️ Balance Restore</div>
+                  <div class="ayur-tl-desc">Vata dosha को शांत करके internal balance restore करने में मदद</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ayur-tl-connector"></div>
+
+            <!-- 03 -->
+            <div class="ayur-tl-item">
+              <div class="ayur-tl-label"><span>03.</span> EarCare Principle</div>
+              <div class="ayur-tl-card">
+                <img src="./Image/Ind.png" alt="EarCare principle" class="ayur-tl-img">
+                <div class="ayur-tl-body">
+                  <div class="ayur-tl-title">✨ EarCare Capsule</div>
+                  <div class="ayur-tl-desc">यही Ayurvedic principle EarCare Capsule में use किया गया है — naturally
+                    सुनने में support करे</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ COMPARISON ══════════════ -->
+    <section class="compare-sec fade-up">
+      <div class="tag">तुलना</div>
+      <h2 class="sec-head">Hearing Machine <span>vs</span> EarCare Capsule</h2>
+      <div class="divider"></div>
+
+      <div class="compare-table">
+        <div class="compare-header">
+          <div>Feature</div>
+          <div>Hearing Machine</div>
+          <div>EarCare Capsule</div>
+        </div>
+        <div class="compare-row">
+          <div>काम कैसे करता है</div>
+          <div>Sound amplify करता है</div>
+          <div>Root support पर काम करता है</div>
+        </div>
+        <div class="compare-row">
+          <div>Type</div>
+          <div>External device</div>
+          <div>Internal support</div>
+        </div>
+        <div class="compare-row">
+          <div>Result</div>
+          <div>Temporary assistance</div>
+          <div>Gradual improvement support</div>
+        </div>
+        <div class="compare-row">
+          <div>Dependency</div>
+          <div>Dependency feel हो सकती है</div>
+          <div>Natural approach</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ INGREDIENTS ══════════════ -->
+    <section class="ingredients-sec fade-up">
+      <div class="tag">Key Ingredients</div>
+      <h2 class="sec-head">प्रमुख <span>Ayurvedic</span> Ingredients</h2>
+      <div class="divider"></div>
+
+      <div class="ingr-grid">
+        <div class="ingr-card">
+          <img src="./Image/Ind15.png" alt="Ashwagandha" class="ingr-img">
+          <div class="ingr-info">
+            <div class="ingr-name">Ashwagandha</div>
+            <div class="ingr-benefit">Nerve support</div>
+          </div>
+        </div>
+        <div class="ingr-card">
+          <img src="./Image/Ind16.png" alt="Brahmi" class="ingr-img">
+          <div class="ingr-info">
+            <div class="ingr-name">Brahmi</div>
+            <div class="ingr-benefit">Brain & signal clarity</div>
+          </div>
+        </div>
+        <div class="ingr-card">
+          <img src="./Image/Ind17.png" alt="Shankhpushpi" class="ingr-img">
+          <div class="ingr-info">
+            <div class="ingr-name">Shankhpushpi</div>
+            <div class="ingr-benefit">Cognitive support</div>
+          </div>
+        </div>
+        <div class="ingr-card">
+          <img src="./Image/Ind18.png" alt="Jyotishmati" class="ingr-img">
+          <div class="ingr-info">
+            <div class="ingr-name">Jyotishmati</div>
+            <div class="ingr-benefit">Nerve activation</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ingr-note">
+        🌿 Other Ayurvedic herbs &nbsp;|&nbsp; <strong>बिना harmful chemicals के</strong>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ HOW TO USE ══════════════ -->
+    <section class="usage-sec fade-up">
+      <div class="tag">उपयोग</div>
+      <h2 class="sec-head">कैसे <span>Use</span> करें</h2>
+      <div class="divider"></div>
+
+      <div class="usage-timeline">
+        <div class="usage-step">
+          <div class="usage-step-num">01</div>
+          <div class="usage-card">
+            <img src="./Image/How23.png" alt="Morning dose" class="usage-img">
+            <div class="usage-text">
+              <div class="usage-title">🌅 Morning Dose</div>
+              <div class="usage-desc">सुबह खाली पेट या नाश्ते के बाद <strong style="color:var(--white)">1
+                  Capsule</strong> गुनगुने पानी के साथ लें</div>
+            </div>
+          </div>
+        </div>
+        <div class="usage-step">
+          <div class="usage-step-num">02</div>
+          <div class="usage-card">
+            <img src="./Image/How24.png" alt="Evening dose" class="usage-img">
+            <div class="usage-text">
+              <div class="usage-title">🌙 Evening Dose</div>
+              <div class="usage-desc">रात के खाने के बाद <strong style="color:var(--white)">1 Capsule</strong> गुनगुने
+                पानी के साथ लें</div>
+            </div>
+          </div>
+        </div>
+        <div class="usage-step">
+          <div class="usage-step-num">03</div>
+          <div class="usage-card">
+            <img src="./Image/How25.png" alt="Duration" class="usage-img">
+            <div class="usage-text">
+              <div class="usage-title">📅 Course Duration</div>
+              <div class="usage-desc">Best results के लिए minimum <strong style="color:var(--white)">2–3 months</strong>
+                लगातार use करें</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ CERTIFIED ══════════════ -->
+    <section class="cert-sec fade-up">
+      <div class="tag">Certified</div>
+      <h2 class="sec-head">Certified & <span>Trusted</span></h2>
+      <div class="divider"></div>
+
+      <div class="cert-grid">
+        <div class="cert-item">
+          <img src="./Image/Trust26.png" alt="GMP Certified">
+          <div class="cert-item-text">
+            <div class="cert-label">GMP Certified</div>
+            <div class="cert-sub">Quality Manufacturing Standards के साथ बना product</div>
+          </div>
+          <div class="cert-badge">✅</div>
+        </div>
+        <div class="cert-item">
+          <img src="./Image/Ind.png" alt="Ayurvedic">
+          <div class="cert-item-text">
+            <div class="cert-label">100% Ayurvedic</div>
+            <div class="cert-sub">Traditional Ayurvedic formulation — no harmful chemicals</div>
+          </div>
+          <div class="cert-badge">🌿</div>
+        </div>
+        <div class="cert-item">
+          <img src="./Image/Trust27.png" alt="Quality Tested">
+          <div class="cert-item-text">
+            <div class="cert-label">Quality Tested</div>
+            <div class="cert-sub">Lab verified ingredients — safe for daily use</div>
+          </div>
+          <div class="cert-badge">🔬</div>
+        </div>
+        <div class="cert-item">
+          <img src="./Image/Trust28.png" alt="Safe">
+          <div class="cert-item-text">
+            <div class="cert-label">Long-term Safe</div>
+            <div class="cert-sub">Suitable for extended use — no major side effects reported</div>
+          </div>
+          <div class="cert-badge">🛡️</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ OFFER ══════════════ -->
+    <section class="offer-sec fade-up">
+      <div class="offer-banner">🔥 LIMITED TIME OFFER — आज ही Order करें</div>
+
+      <div class="tag">Special Offer</div>
+      <h2 class="sec-head">अभी <span>Order</span> करें और पाएं</h2>
+      <div class="divider"></div>
+
+      <div class="offer-img-wrap">
+        <img src="./Image/offer.png" alt="Special Offer" loading="lazy" decoding="async">
+      </div>
+
+    
+
+      <div class="freebies">
+        <div class="freebie"><span class="ico">🚚</span> <span><strong>Free Delivery</strong> — घर तक मुफ्त</span></div>
+        <div class="freebie"><span class="ico">🥗</span> <span><strong>Free Diet Chart</strong> — Expert guided</span>
+        </div>
+        <div class="freebie"><span class="ico">💵</span> <span><strong>Cash on Delivery</strong> — COD Available</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <a href="#order" class="btn-primary">Order Now & Get Special Discount ▸</a>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ ORDER FORM ══════════════ -->
+    <html>
+
+    <head>
+      <script>
+        function submitForm(event) {
+          event.preventDefault();
+          const submitBtn = document.getElementById('submitBtn');
+          const loading = document.getElementById('loading');
+
+          submitBtn.style.opacity = '0.5';
+          submitBtn.disabled = true;
+          setTimeout(() => {
+            submitBtn.style.display = 'none';
+            loading.style.display = 'block';
+          }, 200);
+
+          const formData = new FormData(event.target);
+          let redirected = false;
+
+          const timeout = setTimeout(() => {
+            if (!redirected) { redirected = true; window.location.href = './ThankYou.html'; }
+          }, 2000);
+
+          fetch('https://script.google.com/macros/s/AKfycbxnMuCrcwfsopbyXWRdPKj_4qYlJEaAl1dUNJDOock5uw9XVCUdt8nFDOcmDjmiWIS7/exec', {
+            method: 'POST', body: formData
+          }).then(() => {
+            if (!redirected) { clearTimeout(timeout); redirected = true; window.location.href = './ThankYou.html'; }
+          }).catch(() => {
+            if (!redirected) { clearTimeout(timeout); redirected = true; window.location.href = './ThankYou.html'; }
+          });
+
+          // Animated dots
+          let dotCount = 1;
+          setInterval(() => {
+            const dotAnim = document.getElementById('dotAnim');
+            if (dotAnim) { dotCount = (dotCount % 3) + 1; dotAnim.textContent = '.'.repeat(dotCount); }
+          }, 500);
+        }
+
+      </script>
+    </head>
+
+    <body>
+      <section class="order-sec" id="order">
+        <div class="tag">Order</div>
+        <h2 class="sec-head">Order Now – <span>Natural Hearing Support</span> Journey शुरू करें</h2>
+        <div class="divider"></div>
+
+        <div class="order-form">
+          <form id="orderForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+              <label class="form-label">आपका नाम *</label>
+              <input type="text" class="form-input" id="fname" name="name" placeholder="Full Name लिखें" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" class="form-input" id="fphone" name="phone" placeholder="10-digit mobile number"
+                maxlength="10" required>
+            </div>
+            <button class="order-cta" id="submitBtn" type="submit">
+              🛒 Place Order – COD Available
+            </button>
+          </form>
+
+          <!-- Loading State -->
+          <div id="loading"
+            style="display:none; background:rgba(209,0,0,0.15); border:2px solid var(--red); border-radius:12px; padding:20px 16px; text-align:center; margin-top:16px;">
+            <div
+              style="margin:0 auto 12px; width:40px; height:40px; border:4px solid rgba(209,0,0,0.3); border-top-color:var(--red); border-radius:50%; animation:spin .8s linear infinite;">
+            </div>
+            <p style="font-weight:700; color:var(--white); font-size:1rem; margin:0 0 6px;">आपका Order Process हो रहा
+              है<span id="dotAnim">...</span></p>
+            <p style="color:var(--text-sec); font-size:0.88rem; margin:0;">कृपया प्रतीक्षा करें — यह कुछ seconds में हो
+              जाएगा</p>
+          </div>
+
+          <div class="cod-badge">
+            <span>💵</span>
+            <span>Cash on Delivery उपलब्ध है — कोई advance payment नहीं</span>
+          </div>
+
+          <div class="success-msg" id="successMsg">
+            <h3>✅ Order Successfully Placed!</h3>
+            <p>आपका order receive हो गया है। हमारी team जल्द ही आपसे contact करेगी।</p>
+          </div>
+        </div>
+      </section>
+    </body>
+
+    </html>
+    <div class="red-line"></div>
+
+    <!-- ══════════════ REVIEWS ══════════════ -->
+    <section class="reviews-sec fade-up">
+      <div class="tag">Customer Results</div>
+      <h2 class="sec-head">Real <span>Customer</span> Results</h2>
+      <div class="divider"></div>
+
+      <div class="reviews-scroll">
+        <div class="review-card">
+          <div class="review-top">
+            <div class="av-ring">
+              <img src="./Image/Client20.png" alt="Rajesh" class="review-avatar" loading="lazy" decoding="async">
+            </div>
+            <div class="review-meta">
+              <div class="review-name">Rajesh</div>
+              <div class="review-age">Age: 52 | Verified Customer</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="ap-wrap" data-src="./Image/Review2.mp3">
+            <button class="ap-btn" aria-label="Play">&#9654;</button>
+            <div class="ap-bar-wrap"><div class="ap-bar-fill"></div></div>
+            <span class="ap-time">0:00</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-top">
+            <div class="av-ring">
+              <img src="./Image/Client22.png" alt="Sunita" class="review-avatar" loading="lazy" decoding="async">
+            </div>
+            <div class="review-meta">
+              <div class="review-name">Sunita</div>
+              <div class="review-age">Age: 47 | Verified Customer</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="ap-wrap" data-src="./Image/Review1.mp3">
+            <button class="ap-btn" aria-label="Play">&#9654;</button>
+            <div class="ap-bar-wrap"><div class="ap-bar-fill"></div></div>
+            <span class="ap-time">0:00</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-top">
+            <div class="av-ring">
+              <img src="./Image/Client21.png" alt="Mahesh" class="review-avatar" loading="lazy" decoding="async">
+            </div>
+            <div class="review-meta">
+              <div class="review-name">Mahesh</div>
+              <div class="review-age">Age: 60 | Verified Customer</div>
+              <div class="stars">★★★★☆</div>
+            </div>
+          </div>
+          <div class="ap-wrap" data-src="./Image/Review3.mp3">
+            <button class="ap-btn" aria-label="Play">&#9654;</button>
+            <div class="ap-bar-wrap"><div class="ap-bar-fill"></div></div>
+            <span class="ap-time">0:00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="red-line"></div>
+
+    <!-- ══════════════ FAQ ══════════════ -->
+    <section class="faq-sec fade-up">
+      <div class="tag">FAQ</div>
+      <h2 class="sec-head">अक्सर पूछे जाने वाले <span>सवाल</span></h2>
+      <div class="divider"></div>
+
+      <div class="faq-list">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span>Q1. क्या ये hearing machine का replacement है?</span>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">नहीं, यह hearing support supplement है। <strong>Hearing machine का replacement नहीं
+                है</strong>। यह आपकी ear health को naturally support करता है।</div>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span>Q2. कितना time लगेगा result में?</span>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner"><strong>2–8 weeks</strong> (person to person vary करता है)। बेहतर results के लिए
+              minimum 2-3 months recommended है।</div>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span>Q3. क्या side effects हैं?</span>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner"><strong>No major side effects reported</strong> (as per ingredients)। पूरी तरह
+              Ayurvedic formulation है।</div>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span>Q4. क्या machine users भी ले सकते हैं?</span>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">हाँ, <strong>hearing machine users</strong> भी additional support के लिए use कर
+              सकते हैं।</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ DISCLAIMER ══════════════ -->
+    <div class="disclaimer-sec">
+      <div class="disclaimer-title">⚠ Disclaimer</div>
+      <div class="disclaimer-text">
+        This product is not intended to diagnose, treat, cure or prevent any disease. Results may vary from person to
+        person. Severe cases में doctor consultation जरूरी है। These statements have not been evaluated by any
+        regulatory authority. Individual results may vary based on multiple factors.
+      </div>
+    </div>
+
+    <div class="footer-pad"></div>
   </div>
 
-  <!-- ══════════════ HERO / HOOK ══════════════ -->
-  <section class="hero">
-    <div class="hero-top-bar">
-      📦 Cash on Delivery Available &nbsp;|&nbsp; 🚚 Free Delivery &nbsp;|&nbsp; 🥗 Free Diet Chart
-    </div>
-    <div class="hero-inner">
-      <div class="hero-eyebrow">Ayurvedic Hearing Support</div>
-      <h1 class="hero-headline">
-        जब बातचीत बार-बार<br>
-        <em>Repeat करनी पड़े…</em>
-        तो सिर्फ सुनना नहीं,<br>connection भी प्रभावित होता है
-      </h1>
-      <ul class="hero-bullets">
-        <li>हर hearing issue में एक ही solution (hearing machine) काम करे — ये जरूरी नहीं</li>
-        <li>Hearing health को support करे</li>
-        <li>Ear nerves को nourish करे</li>
-        <li>Daily listening comfort बेहतर बनाने में मदद करे</li>
-        <li>Natural support के साथ बेहतर सुनने की दिशा में एक कदम</li>
-      </ul>
-      <div class="hero-cta-wrap">
-        <a href="#order" class="btn-primary">अभी Order करें ▸</a>
-      </div>
-    </div>
-    <div class="hero-img-wrap">
-      <img src="./Image/Product.avif" alt="EarCare Capsule Product" loading="lazy">
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ PAIN / PROBLEM ══════════════ -->
-  <section class="pain-sec fade-up">
-    <div class="tag">समस्या</div>
-    <h2 class="sec-head">क्या आप इन <span>situations</span> से गुजर रहे हैं?</h2>
-    <div class="divider"></div>
-
-    <div class="pain-grid">
-      <div class="pain-card">
-        <img src="./Image/Product.avif" alt="Repeat karna" class="pain-card-img">
-        <div class="pain-card-text">बार-बार <strong style="color:#FF6666">"क्या?"</strong> बोलना पड़ता है</div>
-      </div>
-      <div class="pain-card">
-        <img src="./Image/Product.avif" alt="Machine dependency" class="pain-card-img">
-        <div class="pain-card-text">Hearing machine के बिना सुनना मुश्किल लगता है</div>
-      </div>
-      <div class="pain-card">
-        <img src="./Image/Product.avif" alt="Clarity issue" class="pain-card-img">
-        <div class="pain-card-text">Machine के साथ भी clarity perfect नहीं आती</div>
-      </div>
-      <div class="pain-card">
-        <img src="./Image/Product.avif" alt="Noisy places" class="pain-card-img">
-        <div class="pain-card-text">Noisy जगहों में समझना बहुत tough हो जाता है</div>
-      </div>
-    </div>
-
-    <div class="pain-card" style="margin-top:12px;padding:14px 12px;display:flex;align-items:center;gap:12px;">
-      <img src="./Image/Product.avif" alt="Social interaction" style="width:56px;height:56px;object-fit:cover;border-radius:4px;flex-shrink:0;">
-      <div class="pain-card-text" style="font-size:1rem;">धीरे-धीरे social interaction कम हो रहा है</div>
-    </div>
-
-    <div class="pain-cause">
-      <div class="pain-cause-head">📌 कारण क्या हो सकता है?</div>
-      <div class="cause-item">
-        <img src="./Image/Product.avif" alt="Ear nerve weakness">
-        <span>Ear nerves की कमजोरी</span>
-      </div>
-      <div class="cause-item">
-        <img src="./Image/Product.avif" alt="Aging effect">
-        <span>Aging effect (उम्र का असर)</span>
-      </div>
-      <div class="cause-item">
-        <img src="./Image/Product.avif" alt="Noise exposure">
-        <span>लगातार noise exposure</span>
-      </div>
-      <div class="cause-item">
-        <img src="./Image/Product.avif" alt="Lifestyle stress">
-        <span>Lifestyle + Stress</span>
-      </div>
-    </div>
-
-    <div class="pain-note">
-      ⚠️ सिर्फ sound amplify करना (hearing machine) हमेशा root cause solve नहीं करता
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ PRODUCT INTRO ══════════════ -->
-  <section class="product-sec fade-up">
-    <div class="tag">Product</div>
-    <h2 class="sec-head"><span>EarCare Capsule</span></h2>
-    <div class="divider"></div>
-
-    <div class="product-reveal">
-      <div class="product-img-side">
-        <img src="./Image/Product.avif" alt="EarCare Capsule">
-      </div>
-      <div class="product-text-side">
-        <div class="product-name">Ear<span>Care</span><br>Capsule</div>
-        <div class="product-tagline">एक Ayurvedic formulation जो specially designed है hearing support के लिए</div>
-        <div class="product-badges">
-          <span class="badge">✔ Ear Health Support</span>
-          <span class="badge">✔ Nerve Nourishment</span>
-          <span class="badge">✔ Listening Comfort</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="for-whom">
-      <div class="for-whom-head">👉 उन लोगों के लिए जो:</div>
-      <div class="for-item">
-        <img src="./Image/Product.avif" alt="Hearing machine user">
-        <span>Hearing machine use कर रहे हैं</span>
-      </div>
-      <div class="for-item">
-        <img src="./Image/Product.avif" alt="Avoid machine">
-        <span>या future में avoid करना चाहते हैं</span>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ MECHANISM / HOW IT WORKS ══════════════ -->
-  <section class="mechanism-sec fade-up">
-    <div class="tag">कैसे काम करता है</div>
-    <h2 class="sec-head">EarCare Capsule <span>3 Level</span> पर काम करता है</h2>
-    <div class="divider"></div>
-
-    <div class="mech-cards">
-      <div class="mech-card">
-        <div class="mech-img-col">
-          <img src="./Image/Product.avif" alt="Nerve Support">
-        </div>
-        <div class="mech-content">
-          <div class="mech-title"><span>🧠</span> Nerve Support</div>
-          <div class="mech-desc">कान की नसों को पोषण देकर signal processing improve करने में मदद</div>
-          <div class="mech-num">01</div>
-        </div>
-      </div>
-      <div class="mech-card">
-        <div class="mech-img-col">
-          <img src="./Image/Product.avif" alt="Circulation Boost">
-        </div>
-        <div class="mech-content">
-          <div class="mech-title"><span>🔄</span> Circulation Boost</div>
-          <div class="mech-desc">Ear region में blood flow support करता है</div>
-          <div class="mech-num">02</div>
-        </div>
-      </div>
-      <div class="mech-card">
-        <div class="mech-img-col">
-          <img src="./Image/Product.avif" alt="Natural Repair">
-        </div>
-        <div class="mech-content">
-          <div class="mech-title"><span>🌿</span> Natural Repair Support</div>
-          <div class="mech-desc">Internal weakness को धीरे-धीरे support करता है</div>
-          <div class="mech-num">03</div>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:18px;text-align:center;padding:14px;background:rgba(209,0,0,0.1);border:1px solid rgba(209,0,0,0.25);border-radius:4px;font-size:1.05rem;color:var(--text-sec);line-height:1.5;">
-      👉 जिससे hearing experience overall <strong style="color:#FF4444">better हो सकता है</strong>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ AYURVEDA ══════════════ -->
-  <section class="ayur-sec fade-up">
-    <div class="tag">Ayurveda</div>
-    <h2 class="sec-head">Ayurvedic <span>Recommendation</span></h2>
-    <div class="divider"></div>
-
-    <div class="ayur-visual">
-      <img src="./Image/Product.avif" alt="Ayurveda Herbs" class="ayur-img-full">
-
-      <div class="ayur-content-box">
-        <div class="ayur-lead">
-          Ayurveda के अनुसार hearing issues का संबंध<br>
-          👉 <strong>"Vata imbalance + nerve weakness"</strong> से होता है
-        </div>
-        <div class="ayur-points">
-          <div class="ayur-point">
-            <img src="./Image/Product.avif" alt="Nerve strengthen">
-            <div class="ayur-point-text">🌿 Nerves को मजबूत करने में herbal support</div>
-          </div>
-          <div class="ayur-point">
-            <img src="./Image/Product.avif" alt="Balance restore">
-            <div class="ayur-point-text">⚖️ Internal balance restore करने में मदद</div>
-          </div>
-          <div class="ayur-point">
-            <img src="./Image/Product.avif" alt="EarCare principle">
-            <div class="ayur-point-text">✨ यही principle EarCare Capsule में use किया गया है</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ COMPARISON ══════════════ -->
-  <section class="compare-sec fade-up">
-    <div class="tag">तुलना</div>
-    <h2 class="sec-head">Hearing Machine <span>vs</span> EarCare Capsule</h2>
-    <div class="divider"></div>
-
-    <div class="compare-table">
-      <div class="compare-header">
-        <div>Feature</div>
-        <div>Hearing Machine</div>
-        <div>EarCare Capsule</div>
-      </div>
-      <div class="compare-row">
-        <div>काम कैसे करता है</div>
-        <div>Sound amplify करता है</div>
-        <div>Root support पर काम करता है</div>
-      </div>
-      <div class="compare-row">
-        <div>Type</div>
-        <div>External device</div>
-        <div>Internal support</div>
-      </div>
-      <div class="compare-row">
-        <div>Result</div>
-        <div>Temporary assistance</div>
-        <div>Gradual improvement support</div>
-      </div>
-      <div class="compare-row">
-        <div>Dependency</div>
-        <div>Dependency feel हो सकती है</div>
-        <div>Natural approach</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ BEFORE & AFTER ══════════════ -->
-  <section class="ba-sec fade-up">
-    <div class="tag">Before & After</div>
-    <h2 class="sec-head">Use से <span>पहले</span> और <span>बाद में</span></h2>
-    <div class="divider"></div>
-
-    <div class="ba-container">
-      <div class="ba-labels">
-        <div class="lbl lbl-before">BEFORE</div>
-        <div class="lbl lbl-after">AFTER</div>
-      </div>
-      <div class="ba-slider-wrap" id="baWrap">
-        <img src="./Image/Product.avif" alt="Before EarCare" class="ba-img-before">
-        <img src="./Image/Product.avif" alt="After EarCare" class="ba-img-after" id="baAfter">
-        <div class="ba-divider-line" id="baDivLine"></div>
-        <div class="ba-handle" id="baHandle">⇔</div>
-      </div>
-    </div>
-
-    <div class="ba-points">
-      <div class="ba-point">
-        <div class="ba-before-text">हर बात repeat करनी पड़ती थी</div>
-        <div class="ba-arrow">→</div>
-        <div class="ba-after-text">काफी improvement महसूस हो रहा है</div>
-      </div>
-      <div class="ba-point">
-        <div class="ba-before-text">Hearing machine के साथ भी struggle</div>
-        <div class="ba-arrow">→</div>
-        <div class="ba-after-text">Clarity better लगी</div>
-      </div>
-      <div class="ba-point">
-        <div class="ba-before-text">Social interaction कम हो रहा था</div>
-        <div class="ba-arrow">→</div>
-        <div class="ba-after-text">Conversation में फर्क दिख रहा है</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ REVIEWS ══════════════ -->
-  <section class="reviews-sec fade-up">
-    <div class="tag">Customer Results</div>
-    <h2 class="sec-head">Real <span>Customer</span> Results</h2>
-    <div class="divider"></div>
-
-    <div class="reviews-scroll">
-      <div class="review-card">
-        <div class="review-top">
-          <img src="./Image/Product.avif" alt="Rajesh" class="review-avatar">
-          <div class="review-meta">
-            <div class="review-name">Rajesh</div>
-            <div class="review-age">Age: 52 | Verified Customer</div>
-            <div class="stars">★★★★★</div>
-          </div>
-        </div>
-        <div class="review-text">
-          "पहले मुझे हर बात repeat करनी पड़ती थी, अब काफी improvement महसूस हो रहा है। बहुत अच्छा product है।"
-        </div>
-      </div>
-
-      <div class="review-card">
-        <div class="review-top">
-          <img src="./Image/Product.avif" alt="Sunita" class="review-avatar">
-          <div class="review-meta">
-            <div class="review-name">Sunita</div>
-            <div class="review-age">Age: 47 | Verified Customer</div>
-            <div class="stars">★★★★★</div>
-          </div>
-        </div>
-        <div class="review-text">
-          "Hearing machine के साथ भी struggle था, capsule use करने के बाद clarity better लगी। Highly recommended!"
-        </div>
-      </div>
-
-      <div class="review-card">
-        <div class="review-top">
-          <img src="./Image/Product.avif" alt="Mahesh" class="review-avatar">
-          <div class="review-meta">
-            <div class="review-name">Mahesh</div>
-            <div class="review-age">Age: 60 | Verified Customer</div>
-            <div class="stars">★★★★☆</div>
-          </div>
-        </div>
-        <div class="review-text">
-          "Slowly फर्क दिख रहा है, खासकर conversation में। Natural product है तो time लगता है लेकिन result दिखता है।"
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ INGREDIENTS ══════════════ -->
-  <section class="ingredients-sec fade-up">
-    <div class="tag">Key Ingredients</div>
-    <h2 class="sec-head">प्रमुख <span>Ayurvedic</span> Ingredients</h2>
-    <div class="divider"></div>
-
-    <div class="ingr-grid">
-      <div class="ingr-card">
-        <img src="./Image/Product.avif" alt="Ashwagandha" class="ingr-img">
-        <div class="ingr-info">
-          <div class="ingr-name">Ashwagandha</div>
-          <div class="ingr-benefit">Nerve support</div>
-        </div>
-      </div>
-      <div class="ingr-card">
-        <img src="./Image/Product.avif" alt="Brahmi" class="ingr-img">
-        <div class="ingr-info">
-          <div class="ingr-name">Brahmi</div>
-          <div class="ingr-benefit">Brain & signal clarity</div>
-        </div>
-      </div>
-      <div class="ingr-card">
-        <img src="./Image/Product.avif" alt="Shankhpushpi" class="ingr-img">
-        <div class="ingr-info">
-          <div class="ingr-name">Shankhpushpi</div>
-          <div class="ingr-benefit">Cognitive support</div>
-        </div>
-      </div>
-      <div class="ingr-card">
-        <img src="./Image/Product.avif" alt="Jyotishmati" class="ingr-img">
-        <div class="ingr-info">
-          <div class="ingr-name">Jyotishmati</div>
-          <div class="ingr-benefit">Nerve activation</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ingr-note">
-      🌿 Other Ayurvedic herbs &nbsp;|&nbsp; <strong>बिना harmful chemicals के</strong>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ HOW TO USE ══════════════ -->
-  <section class="usage-sec fade-up">
-    <div class="tag">उपयोग</div>
-    <h2 class="sec-head">कैसे <span>Use</span> करें</h2>
-    <div class="divider"></div>
-
-    <div class="usage-timeline">
-      <div class="usage-step">
-        <div class="usage-card">
-          <img src="./Image/Product.avif" alt="Morning dose" class="usage-img">
-          <div class="usage-text">
-            <div class="usage-title">🌅 Morning</div>
-            <div class="usage-desc">सुबह 1 capsule पानी के साथ लें</div>
-          </div>
-        </div>
-      </div>
-      <div class="usage-step">
-        <div class="usage-card">
-          <img src="./Image/Product.avif" alt="Evening dose" class="usage-img">
-          <div class="usage-text">
-            <div class="usage-title">🌙 Evening</div>
-            <div class="usage-desc">शाम 1 capsule पानी के साथ लें</div>
-          </div>
-        </div>
-      </div>
-      <div class="usage-step">
-        <div class="usage-card">
-          <img src="./Image/Product.avif" alt="Duration" class="usage-img">
-          <div class="usage-text">
-            <div class="usage-title">📅 Duration</div>
-            <div class="usage-desc">Minimum 2–3 months recommended for best results</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ CERTIFIED ══════════════ -->
-  <section class="cert-sec fade-up">
-    <div class="tag">Certified</div>
-    <h2 class="sec-head">Certified & <span>Trusted</span></h2>
-    <div class="divider"></div>
-
-    <div class="cert-grid">
-      <div class="cert-item">
-        <img src="./Image/Product.avif" alt="GMP Certified">
-        <div class="cert-label">GMP Certified</div>
-        <div class="cert-sub">Quality Manufacturing</div>
-      </div>
-      <div class="cert-item">
-        <img src="./Image/Product.avif" alt="Ayurvedic">
-        <div class="cert-label">Ayurvedic</div>
-        <div class="cert-sub">Traditional Formulation</div>
-      </div>
-      <div class="cert-item">
-        <img src="./Image/Product.avif" alt="Quality Tested">
-        <div class="cert-label">Quality Tested</div>
-        <div class="cert-sub">Lab Verified</div>
-      </div>
-      <div class="cert-item">
-        <img src="./Image/Product.avif" alt="Safe">
-        <div class="cert-label">Safe</div>
-        <div class="cert-sub">Long-term Use</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ OFFER ══════════════ -->
-  <section class="offer-sec fade-up">
-    <div class="offer-banner">🔥 LIMITED TIME OFFER — आज ही Order करें</div>
-
-    <div class="tag">Special Offer</div>
-    <h2 class="sec-head">अभी <span>Order</span> करें और पाएं</h2>
-    <div class="divider"></div>
-
-    <div class="offer-cards">
-      <div class="offer-card">
-        <div class="offer-discount">10%<br>OFF</div>
-        <div class="offer-details">
-          <div class="offer-title">Buy 1 Bottle</div>
-          <div class="offer-desc">1 महीने की supply — शुरुआत करें</div>
-        </div>
-        <div class="offer-check">○</div>
-      </div>
-      <div class="offer-card featured">
-        <div class="offer-discount">20%<br>OFF</div>
-        <div class="offer-details">
-          <div class="offer-title">Buy 2 Bottles ⭐ Best Value</div>
-          <div class="offer-desc">2 महीने की supply — Best results के लिए</div>
-        </div>
-        <div class="offer-check">✔</div>
-      </div>
-    </div>
-
-    <div class="freebies">
-      <div class="freebie"><span class="ico">🚚</span> <span><strong>Free Delivery</strong> — घर तक मुफ्त</span></div>
-      <div class="freebie"><span class="ico">🥗</span> <span><strong>Free Diet Chart</strong> — Expert guided</span></div>
-      <div class="freebie"><span class="ico">💵</span> <span><strong>Cash on Delivery</strong> — COD Available</span></div>
-    </div>
-
-    <div style="text-align:center;">
-      <a href="#order" class="btn-primary">Order Now & Get Special Discount ▸</a>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ ORDER FORM ══════════════ -->
-  <section class="order-sec" id="order">
-    <div class="tag">Order</div>
-    <h2 class="sec-head">Order Now – <span>Natural Hearing Support</span> Journey शुरू करें</h2>
-    <div class="divider"></div>
-
-    <div class="order-form">
-      <div class="form-group">
-        <label class="form-label">आपका नाम *</label>
-        <input type="text" class="form-input" id="fname" placeholder="Full Name लिखें" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Phone Number *</label>
-        <input type="tel" class="form-input" id="fphone" placeholder="10-digit mobile number" maxlength="10" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Delivery Address *</label>
-        <textarea class="form-input" id="faddress" placeholder="पूरा address लिखें" rows="3" required style="resize:none;"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Offer Select करें *</label>
-        <select class="form-input" id="foffer" required>
-          <option value="">— Select Offer —</option>
-          <option value="buy1">Buy 1 – 10% OFF + Free Delivery</option>
-          <option value="buy2">Buy 2 – 20% OFF + Free Delivery + Free Diet Chart ⭐</option>
-        </select>
-      </div>
-
-      <button class="order-cta" id="orderBtn" onclick="placeOrder()">
-        🛒 Place Order – COD Available
-      </button>
-
-      <div class="cod-badge">
-        <span>💵</span>
-        <span>Cash on Delivery उपलब्ध है — कोई advance payment नहीं</span>
-      </div>
-
-      <div class="success-msg" id="successMsg">
-        <h3>✅ Order Successfully Placed!</h3>
-        <p>आपका order receive हो गया है। हमारी team जल्द ही आपसे contact करेगी।</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="red-line"></div>
-
-  <!-- ══════════════ FAQ ══════════════ -->
-  <section class="faq-sec fade-up">
-    <div class="tag">FAQ</div>
-    <h2 class="sec-head">अक्सर पूछे जाने वाले <span>सवाल</span></h2>
-    <div class="divider"></div>
-
-    <div class="faq-list">
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          <span>Q1. क्या ये hearing machine का replacement है?</span>
-          <div class="faq-icon">+</div>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">नहीं, यह hearing support supplement है। <strong>Hearing machine का replacement नहीं है</strong>। यह आपकी ear health को naturally support करता है।</div>
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          <span>Q2. कितना time लगेगा result में?</span>
-          <div class="faq-icon">+</div>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner"><strong>2–8 weeks</strong> (person to person vary करता है)। बेहतर results के लिए minimum 2-3 months recommended है।</div>
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          <span>Q3. क्या side effects हैं?</span>
-          <div class="faq-icon">+</div>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner"><strong>No major side effects reported</strong> (as per ingredients)। पूरी तरह Ayurvedic formulation है।</div>
-        </div>
-      </div>
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          <span>Q4. क्या machine users भी ले सकते हैं?</span>
-          <div class="faq-icon">+</div>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">हाँ, <strong>hearing machine users</strong> भी additional support के लिए use कर सकते हैं।</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ DISCLAIMER ══════════════ -->
-  <div class="disclaimer-sec">
-    <div class="disclaimer-title">⚠ Disclaimer</div>
-    <div class="disclaimer-text">
-      This product is not intended to diagnose, treat, cure or prevent any disease. Results may vary from person to person. Severe cases में doctor consultation जरूरी है। These statements have not been evaluated by any regulatory authority. Individual results may vary based on multiple factors.
-    </div>
-  </div>
-
-  <div class="footer-pad"></div>
-</div>
-
-<script>
-  // ─── BEFORE/AFTER SLIDER ───
-  const wrap = document.getElementById('baWrap');
-  const after = document.getElementById('baAfter');
-  const divLine = document.getElementById('baDivLine');
-  const handle = document.getElementById('baHandle');
-  let dragging = false;
-
-  function setSlider(x) {
-    const rect = wrap.getBoundingClientRect();
-    let pct = ((x - rect.left) / rect.width) * 100;
-    pct = Math.max(5, Math.min(95, pct));
-    after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-    divLine.style.left = pct + '%';
-    handle.style.left = pct + '%';
-  }
-
-  handle.addEventListener('mousedown', () => dragging = true);
-  handle.addEventListener('touchstart', () => dragging = true, { passive: true });
-  document.addEventListener('mouseup', () => dragging = false);
-  document.addEventListener('touchend', () => dragging = false);
-  document.addEventListener('mousemove', e => { if (dragging) setSlider(e.clientX); });
-  document.addEventListener('touchmove', e => {
-    if (dragging) setSlider(e.touches[0].clientX);
-  }, { passive: true });
-
-  // ─── FAQ TOGGLE ───
-  function toggleFaq(item) {
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
-
-  // ─── ORDER FORM ───
-  function placeOrder() {
-    const name = document.getElementById('fname').value.trim();
-    const phone = document.getElementById('fphone').value.trim();
-    const address = document.getElementById('faddress').value.trim();
-    const offer = document.getElementById('foffer').value;
-
-    if (!name || !phone || !address || !offer) {
-      alert('कृपया सभी fields भरें।');
-      return;
-    }
-    if (!/^\d{10}$/.test(phone)) {
-      alert('कृपया valid 10-digit phone number डालें।');
-      return;
-    }
-
-    const btn = document.getElementById('orderBtn');
-    btn.classList.add('loading');
-    btn.innerHTML = '<span class="spinner"></span> Processing...';
-
-    setTimeout(() => {
-      btn.style.display = 'none';
-      document.getElementById('successMsg').classList.add('show');
-      document.getElementById('fname').value = '';
-      document.getElementById('fphone').value = '';
-      document.getElementById('faddress').value = '';
-      document.getElementById('foffer').value = '';
-    }, 2200);
-  }
-
-  // ─── OFFER CARD SELECTION ───
-  document.querySelectorAll('.offer-card').forEach(card => {
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.offer-card').forEach(c => {
-        c.classList.remove('featured');
-        c.querySelector('.offer-check').textContent = '○';
-      });
-      card.classList.add('featured');
-      card.querySelector('.offer-check').textContent = '✔';
-    });
-  });
-
-  // ─── SCROLL FADE-IN ───
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+  <script>
+    // ─── SUBMIT FORM (Google Sheets) ───
+
+    // ─── CUSTOM AUDIO PLAYERS ───
+    document.querySelectorAll('.ap-wrap').forEach(wrap => {
+      const audio = new Audio(wrap.dataset.src);
+      const btn   = wrap.querySelector('.ap-btn');
+      const fill  = wrap.querySelector('.ap-bar-fill');
+      const bar   = wrap.querySelector('.ap-bar-wrap');
+      const time  = wrap.querySelector('.ap-time');
+      wrap._ap = audio;
+
+      function fmt(s) {
+        const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+        return m + ':' + (sec < 10 ? '0' : '') + sec;
       }
+
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ap-wrap').forEach(w => {
+          if (w !== wrap && w._ap && !w._ap.paused) {
+            w._ap.pause();
+            w.querySelector('.ap-btn').innerHTML = '&#9654;';
+          }
+        });
+        if (audio.paused) { audio.play(); btn.innerHTML = '&#9646;&#9646;'; }
+        else              { audio.pause(); btn.innerHTML = '&#9654;'; }
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        if (audio.duration) {
+          fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+          time.textContent = fmt(audio.currentTime);
+        }
+      });
+
+      audio.addEventListener('ended', () => {
+        btn.innerHTML = '&#9654;';
+        fill.style.width = '0%';
+        time.textContent = '0:00';
+      });
+
+      bar.addEventListener('click', e => {
+        if (!audio.duration) return;
+        const r = bar.getBoundingClientRect();
+        audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+      });
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-</script>
+
+    // ─── FAQ TOGGLE ───
+    function toggleFaq(item) {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ─── ORDER FORM ───
+    function placeOrder() {
+      const name = document.getElementById('fname').value.trim();
+      const phone = document.getElementById('fphone').value.trim();
+      const address = document.getElementById('faddress').value.trim();
+      const offer = document.getElementById('foffer').value;
+
+      if (!name || !phone || !address || !offer) {
+        alert('कृपया सभी fields भरें।');
+        return;
+      }
+      if (!/^\d{10}$/.test(phone)) {
+        alert('कृपया valid 10-digit phone number डालें।');
+        return;
+      }
+
+      const btn = document.getElementById('orderBtn');
+      btn.classList.add('loading');
+      btn.innerHTML = '<span class="spinner"></span> Processing...';
+
+      setTimeout(() => {
+        btn.style.display = 'none';
+        document.getElementById('successMsg').classList.add('show');
+        document.getElementById('fname').value = '';
+        document.getElementById('fphone').value = '';
+        document.getElementById('faddress').value = '';
+        document.getElementById('foffer').value = '';
+      }, 2200);
+    }
+
+    // ─── OFFER CARD SELECTION ───
+    document.querySelectorAll('.offer-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.offer-card').forEach(c => {
+          c.classList.remove('featured');
+          c.querySelector('.offer-check').textContent = '○';
+        });
+        card.classList.add('featured');
+        card.querySelector('.offer-check').textContent = '✔';
+      });
+    });
+
+    // ─── SCROLL FADE-IN ───
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
 </body>
+
 </html>
